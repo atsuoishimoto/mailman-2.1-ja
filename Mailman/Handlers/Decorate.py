@@ -21,6 +21,7 @@ import re
 
 from types import ListType
 from email.MIMEText import MIMEText
+from email.Charset import Charset, QP, BASE64
 
 from Mailman import mm_cfg
 from Mailman import Utils
@@ -95,6 +96,15 @@ def process(mlist, msg, msgdata):
     # MIME multipart chroming the message?
     wrap = True
     if not msg.is_multipart() and msgtype == 'text/plain':
+        # TK: Set up a list for Decorate charsets
+        csets = []
+        for cs in mm_cfg.DECORATE_CHARSETS:
+            if cs == mm_cfg.DECORATE_MCSET:
+                cs = mcset
+            if cs == mm_cfg.DECORATE_LCSET:
+                cs = lcset
+            if cs not in csets:
+                csets.append(cs)
         # TK: Try to keep the message plain by converting the header/
         # footer/oldpayload into unicode and encode with mcset/lcset.
         # Try to decode qp/base64 also.
@@ -116,26 +126,31 @@ def process(mlist, msg, msgdata):
             if footer and not oldpayload.endswith('\n'):
                 endsep = u'\n'
             payload = uheader + frontsep + oldpayload + endsep + ufooter
-            try:
-                # first, try encode with list charset
-                payload = payload.encode(lcset)
-                newcset = lcset
-            except UnicodeError:
-                if lcset != mcset:
-                    # if fail, encode with message charset (if different)
-                    payload = payload.encode(mcset)
-                    newcset = mcset
-                    # if this fails, fallback to outer try and wrap=true
-            format = msg.get_param('format')
-            delsp = msg.get_param('delsp')
-            del msg['content-transfer-encoding']
-            del msg['content-type']
-            msg.set_payload(payload, newcset)
-            if format:
-                msg.set_param('Format', format)
-            if delsp:
-                msg.set_param('DelSp', delsp)
-            wrap = False
+            for cs in csets:
+                try:
+                    newpayload = payload.encode(cs)
+                    format = msg.get_param('format')
+                    delsp = msg.get_param('delsp')
+                    cte = msg.get('content-transfer-encoding', '').lower()
+                    del msg['content-transfer-encoding']
+                    del msg['content-type']
+                    if mm_cfg.DECORATE_PREFER_8BIT or cs == mcset:
+                        cs = Charset(cs)
+                        if cte == 'quoted-printable':
+                            cs.body_encoding = QP
+                        elif cte == 'base64':
+                            cs.body_encoding = BASE64
+                        else:
+                            cs.body_encoding = None
+                    msg.set_payload(newpayload, cs)
+                    if format:
+                        msg.set_param('Format', format)
+                    if delsp:
+                        msg.set_param('DelSp', delsp)
+                    wrap = False
+                    break
+                except UnicodeError:
+                    continue
         except (LookupError, UnicodeError):
             pass
     elif msg.get_content_type() == 'multipart/mixed':

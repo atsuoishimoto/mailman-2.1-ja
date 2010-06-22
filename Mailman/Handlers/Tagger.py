@@ -23,21 +23,27 @@ import email.Errors
 import email.Iterators
 import email.Parser
 
+from email.Header import Header
+from Mailman.Utils import oneline, GetCharSet
 from Mailman.Logging.Syslog import syslog
 
 CRNL = '\r\n'
 EMPTYSTRING = ''
 NLTAB = '\n\t'
+COMMA = ','
 
 
 
 def process(mlist, msg, msgdata):
     if not mlist.topics_enabled:
         return
+    # Set language charset
+    lcset = GetCharSet(mlist.preferred_language)
+    mcset = str(msg.get_content_charset(lcset))
     # Extract the Subject:, Keywords:, and possibly body text
     matchlines = []
-    matchlines.append(msg.get('subject', None))
-    matchlines.append(msg.get('keywords', None))
+    matchlines.append(oneline(msg.get('subject', ''), mcset))
+    matchlines.append(oneline(msg.get('keywords', ''), mcset))
     if mlist.topics_bodylines_limit == 0:
         # Don't scan any body lines
         pass
@@ -53,15 +59,23 @@ def process(mlist, msg, msgdata):
     # added to the specific topics bucket.
     hits = {}
     for name, pattern, desc, emptyflag in mlist.topics:
+        pattern = unicode(pattern, lcset)
         cre = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
         for line in matchlines:
+            line = unicode(line, mcset, 'replace')
             if cre.search(line):
                 hits[name] = 1
                 break
     if hits:
         msgdata['topichits'] = hits.keys()
-        msg['X-Topics'] = NLTAB.join(hits.keys())
-    
+        x_topics = COMMA.join(hits.keys())
+        try:
+            unicode(x_topics, 'us-ascii')
+        except:
+            x_topics = unicode(x_topics, lcset, 'replace')
+            x_topics = Header(x_topics.encode('utf-8'), 'utf-8')
+        msg['X-Topics'] = str(x_topics)
+
 
 
 def scanbody(msg, numlines=None):

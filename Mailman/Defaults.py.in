@@ -905,6 +905,11 @@ DEFAULT_MSG_FOOTER = """_______________________________________________
 %(real_name)s@%(host_name)s
 %(web_page_url)slistinfo%(cgiext)s/%(_internal_name)s
 """
+# Charset order in Decorate.py
+DECORATE_LCSET = 1
+DECORATE_MCSET = 2
+DECORATE_CHARSETS = [DECORATE_LCSET, DECORATE_MCSET, 'utf-8']
+DECORATE_PREFER_8BIT = No
 
 # Where to put subject prefix for 'Re:' messages:
 #

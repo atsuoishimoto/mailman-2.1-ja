@@ -31,7 +31,7 @@ from types import IntType, StringType
 from email.Utils import parsedate
 from email.Parser import HeaderParser
 from email.Generator import Generator
-from email.Charset import Charset
+from email.Charset import Charset, QP, BASE64
 
 from Mailman import mm_cfg
 from Mailman import Utils
@@ -169,7 +169,7 @@ def process(mlist, msg, msgdata=None):
     lcset = Utils.GetCharSet(mlist.preferred_language)
     lcset_out = Charset(lcset).output_charset or lcset
     # Now walk over all subparts of this message and scrub out various types
-    format = delsp = None
+    format = delsp = cte = None
     for part in msg.walk():
         ctype = part.get_content_type()
         # If the part is text/plain, we leave it alone
@@ -192,6 +192,7 @@ def process(mlist, msg, msgdata=None):
                 charset = part.get_content_charset(lcset)
                 format = part.get_param('format')
                 delsp = part.get_param('delsp')
+                cte = part.get('content-transfer-encoding', '').lower()
             # TK: if part is attached then check charset and scrub if none
             if part.get('content-disposition') and \
                not part.get_content_charset():
@@ -388,6 +389,13 @@ URL: %(url)s
         except (UnicodeError, LookupError, ValueError,
                 AssertionError):
             pass
+        charset = Charset(charset)
+        if cte == 'quoted-printable':
+            charset.body_encoding = QP
+        elif cte == 'base64':
+            charset.body_encoding = BASE64
+        elif cte == '':
+            charset.body_encoding = None
         replace_payload_by_text(msg, sep.join(text), charset)
         if format:
             msg.set_param('Format', format)
