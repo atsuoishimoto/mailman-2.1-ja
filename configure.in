@@ -195,7 +195,7 @@ needpykf=`cat conftest.out`
 rm -f conftest.out conftest.py
 
 # Does Python have Japanese codecs or do we need the pre-packaged version?
-AC_SUBST(JACODECSPKG)
+AC_SUBST(PYKF)
 if test "$needpykf" = "ok"
 then
     PYKF=""

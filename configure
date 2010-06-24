@@ -657,6 +657,7 @@ PYTHON
 EMAILPKG
 JACODECSPKG
 KOCODECSPKG
+PYKF
 INSTALL_PROGRAM
 INSTALL_SCRIPT
 INSTALL_DATA
@@ -5633,6 +5634,7 @@ PYTHON!$PYTHON$ac_delim
 EMAILPKG!$EMAILPKG$ac_delim
 JACODECSPKG!$JACODECSPKG$ac_delim
 KOCODECSPKG!$KOCODECSPKG$ac_delim
+PYKF!$PYKF$ac_delim
 INSTALL_PROGRAM!$INSTALL_PROGRAM$ac_delim
 INSTALL_SCRIPT!$INSTALL_SCRIPT$ac_delim
 INSTALL_DATA!$INSTALL_DATA$ac_delim
@@ -5662,7 +5664,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 69; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 70; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
