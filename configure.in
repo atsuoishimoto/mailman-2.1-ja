@@ -175,6 +175,35 @@ else
 fi
 AC_MSG_RESULT($needkocodecs)
 
+# Check pykf.
+AC_MSG_CHECKING(pykf)
+changequote(,)
+cat > conftest.py <<EOF
+try:
+    import pykf
+except ImportError:
+    res = "not ok"
+else:
+    res = "ok"
+fp = open("conftest.out", "w")
+fp.write("%s\n" % res)
+fp.close()
+EOF
+changequote([, ])
+$PYTHON conftest.py
+needpykf=`cat conftest.out`
+rm -f conftest.out conftest.py
+
+# Does Python have Japanese codecs or do we need the pre-packaged version?
+AC_SUBST(JACODECSPKG)
+if test "$needpykf" = "ok"
+then
+    PYKF=""
+else
+    PYKF=pykf-0.3.0
+fi
+AC_MSG_RESULT($needpykf)
+
 # Make sure distutils is available.  Some Linux Python packages split
 # distutils into the "-devel" package, so they need both.
 AC_MSG_CHECKING(that Python has a working distutils)

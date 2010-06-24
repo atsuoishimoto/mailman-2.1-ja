@@ -56,8 +56,9 @@ PKGDIR= 	$(srcdir)
 EMAILPKG=	@EMAILPKG@
 JACODECSPKG=	@JACODECSPKG@
 KOCODECSPKG=	@KOCODECSPKG@
+PYKF=           @PYKF@
 
-PACKAGES= $(EMAILPKG) $(JACODECSPKG) $(KOCODECSPKG)
+PACKAGES= $(EMAILPKG) $(JACODECSPKG) $(KOCODECSPKG) $(PYKF)
 
 # Modes for directories and executables created by the install
 # process.  Default to group-writable directories but
