@@ -20,16 +20,11 @@
 import re
 import email
 import email.Errors
-import email.Iterators
-import email.Parser
 
-from email.Header import Header
-from Mailman.Utils import oneline, GetCharSet
-from Mailman.Logging.Syslog import syslog
+from email.header import Header, make_header, decode_header
+from Mailman.Utils import GetCharSet
 
-CRNL = '\r\n'
-EMPTYSTRING = ''
-NLTAB = '\n\t'
+OR = '|'
 COMMA = ','
 
 
@@ -39,11 +34,10 @@ def process(mlist, msg, msgdata):
         return
     # Set language charset
     lcset = GetCharSet(mlist.preferred_language)
-    mcset = str(msg.get_content_charset(lcset))
     # Extract the Subject:, Keywords:, and possibly body text
     matchlines = []
-    matchlines.append(oneline(msg.get('subject', ''), mcset))
-    matchlines.append(oneline(msg.get('keywords', ''), mcset))
+    matchlines.append(u_oneline(msg.get('subject', u'')))
+    matchlines.append(u_oneline(msg.get('keywords', u'')))
     if mlist.topics_bodylines_limit == 0:
         # Don't scan any body lines
         pass
@@ -59,10 +53,10 @@ def process(mlist, msg, msgdata):
     # added to the specific topics bucket.
     hits = {}
     for name, pattern, desc, emptyflag in mlist.topics:
+        pattern = OR.join(pattern.splitlines())
         pattern = unicode(pattern, lcset)
         cre = re.compile(pattern, re.IGNORECASE | re.VERBOSE)
         for line in matchlines:
-            line = unicode(line, mcset, 'replace')
             if cre.search(line):
                 hits[name] = 1
                 break
@@ -85,9 +79,8 @@ def scanbody(msg, numlines=None):
     found = None
     if msg.get_content_type() == 'text/plain':
         found = msg
-    elif (msg.is_multipart() and
-          msg.get_content_type() == 'multipart/alternative'):
-        for found in msg.get_payload():
+    else:
+        for found in msg.walk():
             if found.get_content_type() == 'text/plain':
                 break
         else:
@@ -96,9 +89,10 @@ def scanbody(msg, numlines=None):
         return []
     # Now that we have a Message object that meets our criteria, let's extract
     # the first numlines of body text.
+    mcset = found.get_content_charset(lcset)
     lines = []
     lineno = 0
-    reader = list(email.Iterators.body_line_iterator(msg))
+    reader = found.get_payload(decode=True).splitlines()
     while numlines is None or lineno < numlines:
         try:
             line = reader.pop(0)
@@ -108,64 +102,15 @@ def scanbody(msg, numlines=None):
         if not line.strip():
             continue
         lineno += 1
-        lines.append(line)
-    # Concatenate those body text lines with newlines, and then create a new
-    # message object from those lines.
-    p = _ForgivingParser()
-    msg = p.parsestr(EMPTYSTRING.join(lines))
-    return msg.get_all('subject', []) + msg.get_all('keywords', [])
+        lines.append(unicode(line, mcset))
+    return lines
 
 
-
-class _ForgivingParser(email.Parser.HeaderParser):
-    # Be a little more forgiving about non-header/continuation lines, since
-    # we'll just read as much as we can from "header-like" lines in the body.
-    #
-    # BAW: WIBNI we didn't have to cut-n-paste this whole thing just to
-    # specialize the way it returns?
-    def _parseheaders(self, container, fp):
-        # Parse the headers, returning a list of header/value pairs.  None as
-        # the header means the Unix-From header.
-        lastheader = ''
-        lastvalue = []
-        lineno = 0
-        while 1:
-            # Don't strip the line before we test for the end condition,
-            # because whitespace-only header lines are RFC compliant
-            # continuation lines.
-            line = fp.readline()
-            if not line:
-                break
-            line = line.splitlines()[0]
-            if not line:
-                break
-            # Ignore the trailing newline
-            lineno += 1
-            # Check for initial Unix From_ line
-            if line.startswith('From '):
-                if lineno == 1:
-                    container.set_unixfrom(line)
-                    continue
-                else:
-                    break
-            # Header continuation line
-            if line[0] in ' \t':
-                if not lastheader:
-                    break
-                lastvalue.append(line)
-                continue
-            # Normal, non-continuation header.  BAW: this should check to make
-            # sure it's a legal header, e.g. doesn't contain spaces.  Also, we
-            # should expose the header matching algorithm in the API, and
-            # allow for a non-strict parsing mode (that ignores the line
-            # instead of raising the exception).
-            i = line.find(':')
-            if i < 0:
-                break
-            if lastheader:
-                container[lastheader] = NLTAB.join(lastvalue)
-            lastheader = line[:i]
-            lastvalue = [line[i+1:].lstrip()]
-        # Make sure we retain the last header
-        if lastheader:
-            container[lastheader] = NLTAB.join(lastvalue)
+def u_oneline(s):
+    # Decode header string in one line
+    try:
+        h = make_header(decode_header(s))
+        ustr = unicode(h)
+        return u''.join(ustr.splitlines())
+    except:
+        return u'' # return empty string
