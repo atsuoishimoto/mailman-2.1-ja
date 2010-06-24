@@ -43,10 +43,10 @@ def process(mlist, msg, msgdata):
         pass
     elif mlist.topics_bodylines_limit < 0:
         # Scan all body lines
-        matchlines.extend(scanbody(msg))
+        matchlines.extend(scanbody(msg, lcset))
     else:
         # Scan just some of the body lines
-        matchlines.extend(scanbody(msg, mlist.topics_bodylines_limit))
+        matchlines.extend(scanbody(msg, lcset, mlist.topics_bodylines_limit))
     matchlines = filter(None, matchlines)
     # For each regular expression in the topics list, see if any of the lines
     # of interest from the message match the regexp.  If so, the message gets
@@ -72,7 +72,7 @@ def process(mlist, msg, msgdata):
 
 
 
-def scanbody(msg, numlines=None):
+def scanbody(msg, lcset, numlines=None):
     # We only scan the body of the message if it is of MIME type text/plain,
     # or if the outer type is multipart/alternative and there is a text/plain
     # part.  Anything else, and the body is ignored for header-scan purposes.
