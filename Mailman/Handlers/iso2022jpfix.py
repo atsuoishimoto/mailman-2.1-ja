@@ -1,19 +1,17 @@
 #
+# fix "machine dependent characters" in iso-2022-jp
+# ... if found, convert them into utf-8
+# by tkikuchi 2010/06/25
+# 
 import pykf
 
 def process(mlist, msg, msgdata):
-    if msg.get_content_type() == 'text/plain':
-       if msg.get_content_charset().lower() == 'iso-2022-jp':
-           m = msg
-       else:
-           return
+    for m in msg.walk():
+        if m.get_content_type() == 'text/plain' and\
+           m.get_content_charset() == 'iso-2022-jp':
+            break
     else:
-       for m in msg.walk():
-           if m.get_content_type() == 'text/plain' and\
-              m.get_content_charset().lower() == 'iso-2022-jp':
-               break
-       else:
-           return
+        return
     s = m.get_payload(decode=True)
     try:
         unicode(s, 'iso-2022-jp')
@@ -22,11 +20,9 @@ def process(mlist, msg, msgdata):
         s = pykf.tosjis(s, pykf.JIS)
         s = unicode(s, 'cp932')
         s = s.encode('utf-8')
-        m.set_payload(s)
         del m['content-transfer-encoding']
-        m.set_charset('utf-8')
-        # debug
-        print m.get_content_charset()
+        m.set_payload(s, 'utf-8')
+
 
 if __name__ == '__main__':
     import sys
