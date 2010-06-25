@@ -92,7 +92,7 @@ try:
 except ImportError:
     res = "not ok"
 else:
-    provided = (4, 0, 1)
+    provided = (4, 0, 3)
     version = tuple(int(v) for v in email.__version__.split('.'))
     if provided > version:
         res = "not ok"
@@ -113,7 +113,7 @@ if test "$needemailpkg" = "ok"
 then
     EMAILPKG=""
 else
-    EMAILPKG=email-4.0.1
+    EMAILPKG=email-4.0.3
 fi
 AC_MSG_RESULT($needemailpkg)
 
