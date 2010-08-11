@@ -42,6 +42,17 @@ Here is a history of user visible changes to Mailman.
 
   Bug Fixes and other patches
 
+    - Fixed web CGI tracebacks to properly report sys.path.  Bug #615114.
+
+    - Changed the member options login page unsubscribe request to include the
+      requesters IP address in the confirmation request.  Bug #610527.
+
+    - Changed fix_url to lock the list if not locked.  Bug #610364.
+
+    - Made a minor change to the English subscribeack.txt (welcome message)
+      template to emphasize that a password is only required to unsubscribe
+      *without confirmation*.
+
     - Fixed an issue in admindb that could result in a KeyError and "we hit a
       bug" response when a moderator acts on a post that had been handled by
       someone else after the first moderator had retrieved it.  Bug #598671.
