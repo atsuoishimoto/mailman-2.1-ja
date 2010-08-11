@@ -103,6 +103,7 @@ def process(mlist, msg, msgdata):
                 cs = mcset
             if cs == mm_cfg.DECORATE_LCSET:
                 cs = lcset
+            cs = Charset(cs).output_codec
             if cs not in csets:
                 csets.append(cs)
         # TK: Try to keep the message plain by converting the header/

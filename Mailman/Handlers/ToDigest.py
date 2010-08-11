@@ -317,6 +317,7 @@ def send_i18n_digests(mlist, mboxfp):
     #toctext = toc.getvalue()
     # MIME
     tocpart = MIMEText(toctext.encode(lcset), _charset=lcset)
+    tocpart['Content-Description'] = Header(
                         _("Today's Topics (%(msgcount)d messages)"), lcset,
                         header_name='Content-Description')
     mimemsg.attach(tocpart)
