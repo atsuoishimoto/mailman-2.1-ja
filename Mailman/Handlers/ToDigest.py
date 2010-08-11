@@ -317,7 +317,6 @@ def send_i18n_digests(mlist, mboxfp):
     #toctext = toc.getvalue()
     # MIME
     tocpart = MIMEText(toctext.encode(lcset), _charset=lcset)
-    tocpart['Content-Description']= Header(
                         _("Today's Topics (%(msgcount)d messages)"), lcset,
                         header_name='Content-Description')
     mimemsg.attach(tocpart)
@@ -405,8 +404,9 @@ def send_i18n_digests(mlist, mboxfp):
     # RFC 1153
     plainmsg = '\n\n'.join(plainmsg)
     try:
-        plainmsg = plainmsg.encode(lcset)
-        dcset = lcset
+        lcset_out = Charset(lcset).output_codec
+        plainmsg = plainmsg.encode(lcset_out)
+        dcset = lcset_out
     except UnicodeError:
         plainmsg = plainmsg.encode('utf-8', 'replace')
         dcset = 'utf-8'
