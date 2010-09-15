@@ -4,7 +4,11 @@ Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
 
 Here is a history of user visible changes to Mailman.
 
-2.1.14 (xx-xxx-xxxx)
+2.1.14 (xx-Sep-2010)
+
+  Security
+
+    - Two potential XSS vulnerabilities have been identified and fixed.
 
   New Features
 
@@ -27,6 +31,8 @@ Here is a history of user visible changes to Mailman.
 
   i18n
 
+    - Fixed a missing format character in the German bin/mailmanctl docstring.
+
     - Updated Dutch translation from Jan Veuger.
 
     - Updated Japanese Translation from Tokio Kikuchi.
@@ -41,6 +47,14 @@ Here is a history of user visible changes to Mailman.
       Bug #500952 and Bug #500955.
 
   Bug Fixes and other patches
+
+    - Made minor wording improvements and typo corrections in some messages.
+      Bug #426979.
+
+    - Fixed i18n._() to catch exceptions due to bad formats.  Bug #632660.
+
+    - Fixed admindb interface to decode base64 and quoted-printable encoded
+      message body excerpts for display.  Bug #629738.
 
     - Fixed web CGI tracebacks to properly report sys.path.  Bug #615114.
 
