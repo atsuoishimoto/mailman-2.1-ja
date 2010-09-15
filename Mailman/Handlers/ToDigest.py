@@ -314,7 +314,6 @@ def send_i18n_digests(mlist, mboxfp):
         # Why did we even get here?
         return
     toctext = '\n'.join(toc)
-    #toctext = toc.getvalue()
     # MIME
     tocpart = MIMEText(toctext.encode(lcset), _charset=lcset)
     tocpart['Content-Description'] = Header(
