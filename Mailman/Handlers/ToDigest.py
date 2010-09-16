@@ -41,6 +41,7 @@ from email.MIMEMessage import MIMEMessage
 from email.Utils import getaddresses, formatdate
 from email.Header import decode_header, make_header, Header
 from email.Charset import Charset
+from email.errors import HeaderParseError
 
 from Mailman import mm_cfg
 from Mailman import Utils
