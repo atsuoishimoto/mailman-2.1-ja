@@ -113,7 +113,7 @@ if test "$needemailpkg" = "ok"
 then
     EMAILPKG=""
 else
-    EMAILPKG=email-4.0.3
+    EMAILPKG=email-4.0.3+j
 fi
 AC_MSG_RESULT($needemailpkg)
 
