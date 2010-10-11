@@ -38,6 +38,7 @@ import urlparse
 import htmlentitydefs
 import email.Header
 import email.Iterators
+from email.header import decode_header, make_header
 from email.Errors import HeaderParseError
 from types import UnicodeType
 from string import whitespace, digits
@@ -885,17 +886,46 @@ def uquote(s):
     # Join characters together and coerce to byte string
     return str(EMPTYSTRING.join(a))
 
+# oneline ... Decode header string in one line and convert into 
+#             specified charset
+# check spaces between encoded_words (and strip them)
+sre = re.compile(r'\?=[ \t]+=\?')
+# re pat for MIME encoded_word (without trailing spaces)
+mre = re.compile(r'=\?[^?]*?\?[bq]\?[^? \t]*?\?=', re.I)
+
+def decode_mime(m):
+    # substitute matching encoded_word with unicode equiv.
+    h = decode_header(m.group(0))
+    u = unicode(make_header(h))
+    return u
+
+def u2u_decode(s):
+    # utility function for (final) decoding of mime header
+    # note: resulting string is in one line (no \n within)
+    # note2: spaces between enc_words are stripped (see RFC2047)
+    s = ''.join(s.splitlines())
+    s = sre.sub('?==?', s)
+    u = mre.sub(decode_mime, s)
+    return u
 
 def oneline(s, cset):
-    # Decode header string in one line and convert into specified charset
     try:
-        h = email.Header.make_header(email.Header.decode_header(s))
-        ustr = h.__unicode__()
-        line = UEMPTYSTRING.join(ustr.splitlines())
-        return line.encode(cset, 'replace')
+        line = u2u_decode(s)
+        return line.encode(cset)
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
         # possibly charset problem. return with undecoded string in one line.
         return EMPTYSTRING.join(s.splitlines())
+
+#def oneline(s, cset):
+#    # Decode header string in one line and convert into specified charset
+#    try:
+#        h = email.Header.make_header(email.Header.decode_header(s))
+#        ustr = h.__unicode__()
+#        line = UEMPTYSTRING.join(ustr.splitlines())
+#        return line.encode(cset, 'replace')
+#    except (LookupError, UnicodeError, ValueError, HeaderParseError):
+#        # possibly charset problem. return with undecoded string in one line.
+#        return EMPTYSTRING.join(s.splitlines())
 
 
 # Patterns and functions to flag possible XSS attacks in HTML.
