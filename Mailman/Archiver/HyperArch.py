@@ -449,8 +449,7 @@ class Article(pipermail.Article):
         # TK: This function was rewritten for unifying to Unicode.
         # Convert 'field' into Unicode one line string.
         try:
-            pairs = decode_header(field)
-            ustr = make_header(pairs).__unicode__()
+            ustr = Utils.u2u_decode(field)
         except (LookupError, UnicodeError, ValueError, HeaderParseError):
             # assume list's language
             cset = Utils.GetCharSet(self._mlist.preferred_language)

@@ -22,7 +22,7 @@ import email
 import email.Errors
 
 from email.header import Header, make_header, decode_header
-from Mailman.Utils import GetCharSet
+from Mailman.Utils import GetCharSet, u2u_decode
 
 OR = '|'
 COMMA = ','
@@ -36,8 +36,8 @@ def process(mlist, msg, msgdata):
     lcset = GetCharSet(mlist.preferred_language)
     # Extract the Subject:, Keywords:, and possibly body text
     matchlines = []
-    matchlines.append(u_oneline(msg.get('subject', u'')))
-    matchlines.append(u_oneline(msg.get('keywords', u'')))
+    matchlines.append(u2u_decode(msg.get('subject', u'')))
+    matchlines.append(u2u_decode(msg.get('keywords', u'')))
     if mlist.topics_bodylines_limit == 0:
         # Don't scan any body lines
         pass
@@ -105,12 +105,3 @@ def scanbody(msg, lcset, numlines=None):
         lines.append(unicode(line, mcset))
     return lines
 
-
-def u_oneline(s):
-    # Decode header string in one line
-    try:
-        h = make_header(decode_header(s))
-        ustr = unicode(h)
-        return u''.join(ustr.splitlines())
-    except:
-        return u'' # return empty string

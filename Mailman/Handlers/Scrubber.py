@@ -290,7 +290,7 @@ def process(mlist, msg, msgdata=None):
         ctype = part.get_content_type()
         # get first text/plain part and set message charset etc
         if not mcset and ctype == 'text/plain':
-            mcset = part.get_content_charset()
+            mcset = part.get_content_charset('us-ascii')
             format_param = part.get_param('format')
             delsp_param = part.get_param('delsp')
         # If the part is text/plain, we leave it alone

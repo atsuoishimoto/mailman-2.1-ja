@@ -349,7 +349,7 @@ def send_i18n_digests(mlist, mboxfp):
         hdrtxt = []
         for h in mm_cfg.PLAIN_DIGEST_KEEP_HEADERS:
             if msg[h]:
-                uh = Utils.wrap('%s: %s' % (h, uoneline(msg[h])))
+                uh = Utils.wrap('%s: %s' % (h, Utils.u2u_decode(msg[h])))
                 uh = '\n\t'.join(uh.split('\n'))
                 hdrtxt.append(uh)
         plainmsg.append('\n'.join(hdrtxt))
@@ -416,13 +416,3 @@ def send_i18n_digests(mlist, mboxfp):
                     recips=plainrecips,
                     listname=mlist.internal_name(),
                     isdigest=True)
-
-
-def uoneline(s):
-    # Utils.oneline converts into cset. No need to here.
-    try:
-        h = make_header(decode_header(s))
-        return unicode(h)
-    except (LookupError, UnicodeError, ValueError, HeaderParseError):
-        return u''.join(s.splitlines())
-

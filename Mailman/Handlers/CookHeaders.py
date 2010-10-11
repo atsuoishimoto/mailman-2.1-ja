@@ -331,26 +331,23 @@ def prefix_subject(mlist, msg, msgdata):
 
 
 
+# helper re pattern (sorry but we cannot rely on decode_header())
+mimepat = re.compile('=\?([^?]*?)\?[bq]\?[^? \t]*?\?=', re.I)
+
 def ch_oneline(headerstr):
     # Decode header string in one line and convert into single charset
     # copied and modified from ToDigest.py and Utils.py
     # return (string, cset) tuple as check for failure
     try:
-        d = decode_header(headerstr)
-        # at this point, we should rstrip() every string because some
-        # MUA deliberately add trailing spaces when composing return
-        # message.
-        d = [(s.rstrip(), c) for (s,c) in d]
-        cset = 'us-ascii'
-        for x in d:
-            # search for no-None charset
-            if x[1]:
-                cset = x[1]
-                break
-        h = make_header(d)
-        ustr = h.__unicode__()
-        oneline = u''.join(ustr.splitlines())
-        return oneline.encode(cset, 'replace'), cset
+        csets = mimepat.findall(headerstr)
+        if len(csets) > 1:
+            cset = 'utf-8'
+        elif len(csets) == 1:
+            cset = csets[0]
+        else:
+            cset = 'us-ascii'
+        oneline = Utils.u2u_decode(headerstr)
+        return oneline.encode(cset), cset
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
         # possibly charset problem. return with undecoded string in one line.
         return ''.join(headerstr.splitlines()), 'us-ascii'

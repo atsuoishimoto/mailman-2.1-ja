@@ -916,17 +916,6 @@ def oneline(s, cset):
         # possibly charset problem. return with undecoded string in one line.
         return EMPTYSTRING.join(s.splitlines())
 
-#def oneline(s, cset):
-#    # Decode header string in one line and convert into specified charset
-#    try:
-#        h = email.Header.make_header(email.Header.decode_header(s))
-#        ustr = h.__unicode__()
-#        line = UEMPTYSTRING.join(ustr.splitlines())
-#        return line.encode(cset, 'replace')
-#    except (LookupError, UnicodeError, ValueError, HeaderParseError):
-#        # possibly charset problem. return with undecoded string in one line.
-#        return EMPTYSTRING.join(s.splitlines())
-
 
 # Patterns and functions to flag possible XSS attacks in HTML.
 # This list is compiled from information at http://ha.ckers.org/xss.html,
