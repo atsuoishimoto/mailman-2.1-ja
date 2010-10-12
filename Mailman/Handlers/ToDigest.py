@@ -316,9 +316,16 @@ def send_i18n_digests(mlist, mboxfp):
         return
     toctext = '\n'.join(toc)
     # MIME
-    tocpart = MIMEText(toctext.encode(lcset), _charset=lcset)
-    tocpart['Content-Description'] = Header(
+    try:
+        tocpart = MIMEText(toctext.encode(lcset), _charset=lcset)
+        tocpart['Content-Description'] = Header(
                         _("Today's Topics (%(msgcount)d messages)"), lcset,
+                        header_name='Content-Description')
+    except UnicodeError:
+        tocpart = MIMEText(toctext.encode('utf-8'), _charset='utf-8')
+        tocdesc = unicode(_("Today's Topics (%(msgcount)d messages)")
+                       ).encode('utf-8')
+        tocpart['Content-Description'] = Header(docdesc, 'utf-8',
                         header_name='Content-Description')
     mimemsg.attach(tocpart)
     # RFC 1153
