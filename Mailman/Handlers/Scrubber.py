@@ -279,7 +279,7 @@ def process(mlist, msg, msgdata=None):
     dir = calculate_attachments_dir(mlist, msg, msgdata)
     charset = None
     lcset = Utils.GetCharSet(mlist.preferred_language)
-    mcset = format_param = delsep_param = None
+    mcset = format_param = delsp_param = None
     fbcset = 'utf-8' # fall back charset
     msgtexts = []
     scrubber = Scrubber(mlist, msg, msgdata, msgtexts)
@@ -342,7 +342,7 @@ def process(mlist, msg, msgdata=None):
     del msg['content-transfer-encoding']
     try:
         msg.set_payload(msgtext.encode(mcset), mcset)
-    except UnicodeEncodeError:
+    except (UnicodeEncodeError, TypeError):
         try:
             msg.set_payload(msgtext.encode(lcset), lcset)
         except UnicodeEncodeError:

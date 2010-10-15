@@ -456,7 +456,8 @@ class Article(pipermail.Article):
             if cset == 'us-ascii':
                 cset = 'iso-8859-1' # assume this for English list
             ustr = unicode(field, cset, 'replace')
-        return u''.join(ustr.splitlines())
+            ustr = u''.join(ustr.splitlines())
+        return ustr
 
     def as_html(self):
         d = self.__dict__.copy()
