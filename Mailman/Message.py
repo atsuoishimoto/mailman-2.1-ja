@@ -250,7 +250,6 @@ class UserNotification(Message):
     def __init__(self, recip, sender, subject=None, text=None, lang=None, 
                  charset=None):
         Message.__init__(self)
-        #charset = None
         if lang is not None:
             charset = Charset(Utils.GetCharSet(lang))
         if text is not None:

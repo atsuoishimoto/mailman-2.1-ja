@@ -253,7 +253,8 @@ def hold_for_approval(mlist, msg, msgdata, exc):
             nmsg = Message.UserNotification(sender, adminaddr, subject, 
                                             text, lang)
         except UnicodeError:
-            nmsg = Message.UserNotification(sender, adminaddr, subject,
+            nmsg = Message.UserNotification(sender, adminaddr, 
+                     unicode(subject, charset).encode('utf-8'),
                      unicode(text, charset).encode('utf-8'), charset='utf-8')
         nmsg.send(mlist)
     # Now the message for the list owners.  Be sure to include the list
