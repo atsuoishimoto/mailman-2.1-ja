@@ -507,8 +507,14 @@ class ListAdmin:
             subject = _('Request to mailing list %(realname)s rejected')
         finally:
             i18n.set_translation(otrans)
-        msg = Message.UserNotification(recip, self.GetOwnerEmail(),
+        try:
+            charset = Utils.GetCharSet(lang)
+            msg = Message.UserNotification(recip, self.GetOwnerEmail(),
                                        subject, text, lang)
+        except UnicodeError:
+            msg = Message.UserNotification(recip, self.GetOwnerEmail(),
+                      unicode(subject, charset).encode('utf-8')
+                      unicode(text, charset).encode('utf-8'), charset='utf-8')
         msg.send(self)
 
     def _UpdateRecords(self):
