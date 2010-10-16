@@ -513,7 +513,7 @@ class ListAdmin:
                                        subject, text, lang)
         except UnicodeError:
             msg = Message.UserNotification(recip, self.GetOwnerEmail(),
-                      unicode(subject, charset).encode('utf-8')
+                      unicode(subject, charset).encode('utf-8'),
                       unicode(text, charset).encode('utf-8'), charset='utf-8')
         msg.send(self)
 
