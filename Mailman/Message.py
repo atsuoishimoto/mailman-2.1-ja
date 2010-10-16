@@ -247,9 +247,10 @@ class Message(email.Message.Message):
 class UserNotification(Message):
     """Class for internally crafted messages."""
 
-    def __init__(self, recip, sender, subject=None, text=None, lang=None):
+    def __init__(self, recip, sender, subject=None, text=None, lang=None, 
+                 charset=None):
         Message.__init__(self)
-        charset = None
+        #charset = None
         if lang is not None:
             charset = Charset(Utils.GetCharSet(lang))
         if text is not None:

@@ -249,7 +249,12 @@ def hold_for_approval(mlist, msg, msgdata, exc):
         lang = msgdata.get('lang', mlist.getMemberLanguage(sender))
         subject = _('Your message to %(listname)s awaits moderator approval')
         text = Utils.maketext('postheld.txt', d, lang=lang, mlist=mlist)
-        nmsg = Message.UserNotification(sender, adminaddr, subject, text, lang)
+        try:
+            nmsg = Message.UserNotification(sender, adminaddr, subject, 
+                                            text, lang)
+        except UnicodeError:
+            nmsg = Message.UserNotification(sender, adminaddr, subject,
+                     unicode(text, charset).encode('utf-8'), charset='utf-8')
         nmsg.send(mlist)
     # Now the message for the list owners.  Be sure to include the list
     # moderators in this message.  This one should appear to come from
