@@ -903,9 +903,14 @@ def u2u_decode(s):
     # utility function for (final) decoding of mime header
     # note: resulting string is in one line (no \n within)
     # note2: spaces between enc_words are stripped (see RFC2047)
+    # note3: strict on return unicode string type
     s = ''.join(s.splitlines())
     s = sre.sub('?==?', s)
     u = mre.sub(decode_mime, s)
+    if type(u) != UnicodeType:
+        # replace character is not in ascii range. :-(
+        u = unicode(unicode(u, 'us-ascii', 'replace'
+                    ).encode('us-ascii', 'replace'), 'us-ascii')
     return u
 
 def oneline(s, cset):
