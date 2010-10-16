@@ -270,9 +270,12 @@ def hold_for_approval(mlist, msg, msgdata, exc):
             nmsg = Message.UserNotification(owneraddr, owneraddr, subject,
                                             lang=lang)
             nmsg.set_type('multipart/mixed')
-            text = MIMEText(
-                Utils.maketext('postauth.txt', d, raw=1, mlist=mlist),
-                _charset=charset)
+            postauth = Utils.maketext('postauth.txt', d, raw=1, mlist=mlist)
+            try:
+                text = MIMEText(postauth, _charset=charset)
+            except UnicodeError:
+                text = MIMEText(unicode(postauth, charset).encode('utf-8'),
+                                _charset='utf-8')
             dmsg = MIMEText(Utils.wrap(_("""\
 If you reply to this message, keeping the Subject: header intact, Mailman will
 discard the held message.  Do this if the message is spam.  If you reply to
