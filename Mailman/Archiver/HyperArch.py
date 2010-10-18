@@ -40,7 +40,7 @@ import pipermail
 import weakref
 import binascii
 
-from email.Header import decode_header, make_header
+from email.Header import decode_header, make_header, Header
 from email.Errors import HeaderParseError
 from email.Charset import Charset
 
@@ -276,6 +276,7 @@ class Article(pipermail.Article):
         # Useful to keep around
         self._lang = lang
         self._mlist = mlist
+        self._charset = Utils.GetCharSet(lang)
 
         if mm_cfg.ARCHIVER_OBSCURES_EMAILADDRS:
             # Avoid i18n side-effects.  Note that the language for this
@@ -286,8 +287,8 @@ class Article(pipermail.Article):
             try:
                 i18n.set_language(lang)
                 if self.author == self.email:
-                    self.author = self.email = re.sub('@', _(' at '),
-                                                      self.email)
+                    self.email = re.sub('@', _(' at '), self.email)
+                    self.author = str(Header(self.email, self._charset))
                 else:
                     self.email = re.sub('@', _(' at '), self.email)
             finally:
@@ -412,9 +413,10 @@ class Article(pipermail.Article):
         subject = self.decode_charset(self.subject)
         if author:
             self.decoded['author'] = author
-            email = self.decode_charset(self.email)
-            if email:
-                self.decoded['email'] = email
+            self.decoded['email'] = self.email
+            #email = self.decode_charset(self.email)
+            #if email:
+            #    self.decoded['email'] = email
         if subject:
             if mm_cfg.ARCHIVER_OBSCURES_EMAILADDRS:
                 otrans = i18n.get_translation()
