@@ -414,9 +414,6 @@ class Article(pipermail.Article):
         if author:
             self.decoded['author'] = author
             self.decoded['email'] = self.email
-            #email = self.decode_charset(self.email)
-            #if email:
-            #    self.decoded['email'] = email
         if subject:
             if mm_cfg.ARCHIVER_OBSCURES_EMAILADDRS:
                 otrans = i18n.get_translation()
