@@ -303,7 +303,7 @@ def process(mlist, msg, msgdata=None):
                 # ordinary email message
                 cset = part.get_content_charset('us-ascii')
                 text = part.get_payload(decode=True)
-                msgtexts.append(unicode(text, cset))
+                msgtexts.append(unicode(text, cset, 'replace'))
         elif ctype == 'text/html' and isinstance(sanitize, IntType):
             if sanitize == 0:
                 if outer:
