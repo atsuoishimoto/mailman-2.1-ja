@@ -1,10 +1,16 @@
 Mailman 2.1.x+j について
-　　　　　　　　　　　　2010/07/10　　　　　　　菊地時夫
+　　　　　　　　　　　　　　　　　　　菊地時夫
 
+**簡単に言うと**
 *これは何?*
 日本語のメーリングリストの運用でよく問題になる、文字コードの
 問題をできるだけ修正しようとするもの。
 
+*推奨設定*
+mm_cfg.py に以下を追加する。
+GLOBAL_PIPELINE.insert(1, 'iso2022jpfix')
+
+**もっと詳しく**
 *何が問題なの?*
 日本語のメールは ISO-2022-JP で出すべきだという習慣が長い
 事続いているが、つい使ってしまう機種依存文字の問題があり、
@@ -39,7 +45,7 @@ charset の優先順位を与える事で、できる限りリストのポリシ
 通常の mailman と同様。pythonlib に pykf が入り、
 Handlers に iso2022jpfix.py が入る。
 
-*設定* (あなたのポリシーと責任で)
+*設定の詳細* (あなたのポリシーと責任で)
 1.Defaults.py に設定可能なパラメータを追加してある。
 # Charset order in Decorate.py
 DECORATE_LCSET = 1
@@ -64,3 +70,6 @@ GLOBAL_PIPELINE.insert(1, 'iso2022jpfix')
 
 *以上*
 質問は mailman-users-jp@python.jp へどうぞ。
+***
+2010/10/30 rev 2.
+2010/07/10 1st version
