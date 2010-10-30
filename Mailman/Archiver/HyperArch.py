@@ -40,7 +40,7 @@ import pipermail
 import weakref
 import binascii
 
-from email.Header import decode_header, make_header, Header
+from email.Header import Header
 from email.Errors import HeaderParseError
 from email.Charset import Charset
 
@@ -85,13 +85,6 @@ if sys.platform == 'darwin':
         soft, hard = resource.getrlimit(resource.RLIMIT_STACK)
         newsoft = min(hard, max(soft, 1024*2048))
         resource.setrlimit(resource.RLIMIT_STACK, (newsoft, hard))
-
-
-try:
-    True, False
-except NameError:
-    True = 1
-    False = 0
 
 
 

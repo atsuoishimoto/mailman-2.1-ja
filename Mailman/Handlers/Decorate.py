@@ -1,4 +1,4 @@
-# Copyright (C) 1998-2008 by the Free Software Foundation, Inc.
+# Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -12,8 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-# USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA 02110-1301, USA.
 
 """Decorate a message by sticking the header and footer around it."""
 
@@ -30,13 +30,6 @@ from Mailman.Message import Message
 from Mailman.i18n import _
 from Mailman.SafeDict import SafeDict
 from Mailman.Logging.Syslog import syslog
-
-try:
-    True, False
-except:
-    True = 1
-    False = 0
-
 
 
 def process(mlist, msg, msgdata):

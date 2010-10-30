@@ -33,13 +33,11 @@ import traceback
 from types import ListType
 from cStringIO import StringIO
 
-from email.Parser import Parser
-from email.Generator import Generator
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
 from email.MIMEMessage import MIMEMessage
 from email.Utils import getaddresses, formatdate
-from email.Header import decode_header, make_header, Header
+from email.Header import Header
 from email.Charset import Charset
 from email.errors import HeaderParseError
 
@@ -59,13 +57,6 @@ _ = i18n._
 
 UEMPTYSTRING = u''
 EMPTYSTRING = ''
-
-try:
-    True, False
-except NameError:
-    True = 1
-    False = 0
-
 
 
 def process(mlist, msg, msgdata):

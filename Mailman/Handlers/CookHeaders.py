@@ -1,4 +1,4 @@
-# Copyright (C) 1998-2008 by the Free Software Foundation, Inc.
+# Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -12,41 +12,28 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-# USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA 02110-1301, USA.
 
 """Cook a message's Subject header."""
 
 from __future__ import nested_scopes
 import re
-from types import UnicodeType
 
-from email.Charset import Charset
-from email.Header import Header, decode_header, make_header
+from email.Header import Header
 from email.Utils import parseaddr, formataddr, getaddresses
 from email.Errors import HeaderParseError
 
 from Mailman import mm_cfg
 from Mailman import Utils
 from Mailman.i18n import _
-from Mailman.Logging.Syslog import syslog
 
 CONTINUATION = ',\n\t'
 COMMASPACE = ', '
 MAXLINELEN = 78
 
-# True/False
-try:
-    True, False
-except NameError:
-    True = 1
-    False = 0
-
 
 
-def _isunicode(s):
-    return isinstance(s, UnicodeType)
-
 nonascii = re.compile('[^\s!-~]')
 
 def uheader(mlist, s, header_name=None, continuation_ws='\t', maxlinelen=None):
