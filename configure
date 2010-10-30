@@ -2334,7 +2334,7 @@ if test "$needpykf" = "ok"
 then
     PYKF=""
 else
-    PYKF=pykf-0.3.0
+    PYKF=pykf-0.3.4
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $needpykf" >&5
 $as_echo "$needpykf" >&6; }
