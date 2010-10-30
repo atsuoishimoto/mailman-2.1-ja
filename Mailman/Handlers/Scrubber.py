@@ -1,4 +1,4 @@
-# Copyright (C) 2001-2009 by the Free Software Foundation, Inc.
+# Copyright (C) 2001-2010 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -12,8 +12,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-# USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA 02110-1301, USA.
 
 """Cleanse a message for archiving."""
 
@@ -23,15 +23,8 @@ import os
 import re
 import time
 import errno
-import binascii
-import tempfile
-from cStringIO import StringIO
-from types import IntType, StringType
 
 from email.Utils import parsedate
-from email.Parser import HeaderParser
-from email.Generator import Generator
-from email.Charset import Charset, QP, BASE64
 
 from Mailman import mm_cfg
 from Mailman import Utils
@@ -52,31 +45,6 @@ dre = re.compile(r'^\.*')
 
 BR = '<br>\n'
 SPACE = ' '
-
-try:
-    True, False
-except NameError:
-    True = 1
-    False = 0
-
-
-try:
-    from mimetypes import guess_all_extensions
-except ImportError:
-    import mimetypes
-    def guess_all_extensions(ctype, strict=True):
-        # BAW: sigh, guess_all_extensions() is new in Python 2.3
-        all = []
-        def check(map):
-            for e, t in map.items():
-                if t == ctype:
-                    all.append(e)
-        check(mimetypes.types_map)
-        # Python 2.1 doesn't have common_types.  Sigh, sigh.
-        if not strict and hasattr(mimetypes, 'common_types'):
-            check(mimetypes.common_types)
-        return all
-
 
 
 def guess_extension(ctype, ext):
@@ -153,6 +121,10 @@ def replace_payload_by_text(msg, text, charset):
 
 
 class Scrubber:
+    """ TK: Scrubber class is introduced for convenience.
+        It has common initializer and functions to save the attachment
+        and compose short text to describe it.
+    """
     def __init__(self, mlist, msg, msgdata, msgtexts):
         self.mlist = mlist
         self.msg = msg
@@ -163,6 +135,7 @@ class Scrubber:
         self.lcset = Utils.GetCharSet(self.mlist.preferred_language)
 
     def scrub_text(self, part):
+        # Plain text scrubber.
         omask = os.umask(002)
         try:
             url = save_attachment(self.mlist, part, self.dir)
@@ -177,6 +150,7 @@ URL: %(url)s
 """), self.lcset))
 
     def scrub_html3(self, part):
+        # sanitize == 3
         omask = os.umask(002)
         try:
             url = save_attachment(self.mlist, part, self.dir,
@@ -189,6 +163,7 @@ URL: %(url)s
 """), self.lcset))
 
     def scrub_html1(self, part):
+        # sanitize == 1
         payload = Utils.websafe(part.get_payload(decode=True))
         # For whitespace in the margin, change spaces into
         # non-breaking spaces, and tabs into 8 of those.  Then use a
@@ -214,6 +189,7 @@ URL: %(url)s
 """), self.lcset))
 
     def scrub_msg822(self, part):
+        # submessage
         submsg = part.get_payload(0)
         omask = os.umask(002)
         try:
@@ -238,6 +214,7 @@ URL: %(url)s
         part.set_payload('blah blah', 'us-ascii')
 
     def scrub_any(self, part):
+        # Images and MS Office files and all
         payload = part.get_payload(decode=True)
         ctype = part.get_content_type()
         # XXX email 2.5 special care is omitted.
@@ -281,6 +258,7 @@ def process(mlist, msg, msgdata=None):
     lcset = Utils.GetCharSet(mlist.preferred_language)
     mcset = format_param = delsp_param = None
     fbcset = 'utf-8' # fall back charset
+    # compose replaced texts in unicode string fragments
     msgtexts = []
     scrubber = Scrubber(mlist, msg, msgdata, msgtexts)
     # Now walk over all subparts of this message and scrub out various types
@@ -288,12 +266,14 @@ def process(mlist, msg, msgdata=None):
         if part.get_content_maintype() == 'multipart':
             continue
         ctype = part.get_content_type()
-        # get first text/plain part and set message charset etc
+        # Get the first text/plain part and set message charset etc
+        # Note that lcset is reserved for fall back if the content cannot
+        # be encoded by the original message charset.
         if not mcset and ctype == 'text/plain':
             mcset = part.get_content_charset('us-ascii')
             format_param = part.get_param('format')
             delsp_param = part.get_param('delsp')
-        # If the part is text/plain, we leave it alone
+        # For all text/plain, we check if it is attachment.
         if ctype == 'text/plain':
             # TK: if part is attached then check charset and scrub if none
             if part.get('content-disposition') and \
@@ -304,7 +284,7 @@ def process(mlist, msg, msgdata=None):
                 cset = part.get_content_charset('us-ascii')
                 text = part.get_payload(decode=True)
                 msgtexts.append(unicode(text, cset, 'replace'))
-        elif ctype == 'text/html' and isinstance(sanitize, IntType):
+        elif ctype == 'text/html' and isinstance(sanitize, int):
             if sanitize == 0:
                 if outer:
                     raise DiscardMessage
@@ -340,6 +320,7 @@ def process(mlist, msg, msgdata=None):
     msgtext = sep.join(msgtexts)
     del msg['content-type']
     del msg['content-transfer-encoding']
+    # Now try encoding message by mcset, lcset, fbcset order.
     try:
         msg.set_payload(msgtext.encode(mcset), mcset)
     except (UnicodeEncodeError, TypeError):
@@ -349,10 +330,10 @@ def process(mlist, msg, msgdata=None):
             # fall back = utf-8 should work always
             msg.set_payload(msgtext.encode(fbcset), fbcset)
     if format_param:
-        msg.set_param('format', format_param)
+        msg.set_param('Format', format_param)
     if delsp_param:
-        msg.set_param('delsp', delsp_param)
-    # Should we stick on CTE thing? This CAN change in msg transfer.
+        msg.set_param('DelSp', delsp_param)
+    # Content-Transfer-Encoding depends on the charset chosen.
     return msg
 
 
