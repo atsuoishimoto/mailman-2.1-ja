@@ -334,7 +334,7 @@ def ch_oneline(headerstr):
         if len(csets) > 1:
             cset = 'utf-8'
         elif len(csets) == 1:
-            cset = csets[0]
+            cset = csets.pop()
         else:
             cset = 'us-ascii'
         oneline = Utils.u2u_decode(headerstr)
