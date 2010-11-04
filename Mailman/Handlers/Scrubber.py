@@ -25,6 +25,7 @@ import time
 import errno
 
 from email.Utils import parsedate
+from mimetypes import guess_all_extensions
 
 from Mailman import mm_cfg
 from Mailman import Utils
