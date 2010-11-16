@@ -284,7 +284,11 @@ def process(mlist, msg, msgdata=None):
                 # ordinary email message
                 cset = part.get_content_charset('us-ascii')
                 text = part.get_payload(decode=True)
-                msgtexts.append(unicode(text, cset, 'replace'))
+                try:
+                    msgtexts.append(unicode(text, cset, 'replace'))
+                except LookupError:
+                    # malformed cset
+                    scrubber.scrub_text(part)
         elif ctype == 'text/html' and isinstance(sanitize, int):
             if sanitize == 0:
                 if outer:
