@@ -913,8 +913,11 @@ def oneline(s, cset):
         line = u2u_decode(s)
         return line.encode(cset)
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
-        # possibly charset problem. return with undecoded string in one line.
-        return EMPTYSTRING.join(s.splitlines())
+        # possibly charset problem. optimize with the cset (lcset possibly).
+        s = EMPTYSTRING.join(s.splitlines())
+        cset_out = Charset(cset).output_charset
+        s = unicode(s, cset_out, 'replace').encode(cset, 'replace')
+        return s
 
 
 # Patterns and functions to flag possible XSS attacks in HTML.
