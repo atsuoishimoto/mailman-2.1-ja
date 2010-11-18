@@ -279,14 +279,13 @@ def process(mlist, msg, msgdata=None):
         if ctype == 'text/plain':
             # check message charset (eg. 'unknown' should be None)
             cset = part.get_content_charset()
-            if cset:
-                try:
-                    unicode('', cset)
-                except (LookupError, TypeError):
-                    if firsttext:
-                        cset = 'us-ascii'
-                    else:
-                        cset = None
+            try:
+                unicode('', cset)
+            except (LookupError, TypeError):
+                if firsttext:
+                    cset = 'us-ascii'
+                else:
+                    cset = None
             # check Content-Disposition Header
             cd = part.get('content-disposition', '').lower()
             if 'attachment' in cd or not cset:
