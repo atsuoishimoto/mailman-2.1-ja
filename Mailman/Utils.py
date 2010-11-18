@@ -40,6 +40,7 @@ import email.Header
 import email.Iterators
 from email.header import decode_header, make_header
 from email.Errors import HeaderParseError
+from email.charset import Charset
 from types import UnicodeType
 from string import whitespace, digits
 try:
