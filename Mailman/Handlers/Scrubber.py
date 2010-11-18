@@ -280,7 +280,7 @@ def process(mlist, msg, msgdata=None):
             # check message charset (eg. 'unknown' should be None)
             cset = part.get_content_charset()
             try:
-                unicode('', cset)
+                u''.encode(cset)
             except (LookupError, TypeError):
                 if firsttext:
                     cset = 'us-ascii'
