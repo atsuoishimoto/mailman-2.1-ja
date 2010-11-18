@@ -261,6 +261,7 @@ def process(mlist, msg, msgdata=None):
     fbcset = 'utf-8' # fall back charset
     # compose replaced texts in unicode string fragments
     msgtexts = []
+    firsttexst = True
     scrubber = Scrubber(mlist, msg, msgdata, msgtexts)
     # Now walk over all subparts of this message and scrub out various types
     for part in msg.walk():
@@ -276,19 +277,25 @@ def process(mlist, msg, msgdata=None):
             delsp_param = part.get_param('delsp')
         # For all text/plain, we check if it is attachment.
         if ctype == 'text/plain':
-            # TK: if part is attached then check charset and scrub if none
-            if part.get('content-disposition') and \
-               not part.get_content_charset():
-                scrubber.scrub_text(part)
-            else:
-                # ordinary email message
-                cset = part.get_content_charset('us-ascii')
-                text = part.get_payload(decode=True)
+            # check message charset (eg. 'unknown' should be None)
+            cset = part.get_content_charset('us-ascii')
+            if cset:
                 try:
-                    msgtexts.append(unicode(text, cset, 'replace'))
+                    unicode('', cset)
                 except LookupError:
-                    # malformed cset
-                    scrubber.scrub_text(part)
+                    if firsttext:
+                        cset = 'us-ascii'
+                    else:
+                        cset = None
+            # check Content-Disposition Header
+            cd = part.get('content-disposition', '')
+            if firsttext or cd.lower().startswith('inline') and cset:
+                # inline message texts should have known charset.
+                text = part.get_payload(decode=True)
+                msgtexts.append(unicode(text, cset, 'replace'))
+                firsttext = False
+            else:
+                scrubber.scrub_text(part)
         elif ctype == 'text/html' and isinstance(sanitize, int):
             if sanitize == 0:
                 if outer:
