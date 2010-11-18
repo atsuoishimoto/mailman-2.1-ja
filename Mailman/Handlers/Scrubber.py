@@ -261,7 +261,7 @@ def process(mlist, msg, msgdata=None):
     fbcset = 'utf-8' # fall back charset
     # compose replaced texts in unicode string fragments
     msgtexts = []
-    firsttexst = True
+    firsttext = True
     scrubber = Scrubber(mlist, msg, msgdata, msgtexts)
     # Now walk over all subparts of this message and scrub out various types
     for part in msg.walk():
