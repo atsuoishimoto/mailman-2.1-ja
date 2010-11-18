@@ -278,24 +278,23 @@ def process(mlist, msg, msgdata=None):
         # For all text/plain, we check if it is attachment.
         if ctype == 'text/plain':
             # check message charset (eg. 'unknown' should be None)
-            cset = part.get_content_charset('us-ascii')
+            cset = part.get_content_charset()
             if cset:
                 try:
                     unicode('', cset)
-                except LookupError:
+                except (LookupError, TypeError):
                     if firsttext:
                         cset = 'us-ascii'
                     else:
                         cset = None
             # check Content-Disposition Header
-            cd = part.get('content-disposition', '')
-            if firsttext or cd.lower().startswith('inline') and cset:
-                # inline message texts should have known charset.
+            cd = part.get('content-disposition', '').lower()
+            if 'attachment' in cd or not cset:
+                scrubber.scrub_text(part)
+            else:
                 text = part.get_payload(decode=True)
                 msgtexts.append(unicode(text, cset, 'replace'))
                 firsttext = False
-            else:
-                scrubber.scrub_text(part)
         elif ctype == 'text/html' and isinstance(sanitize, int):
             if sanitize == 0:
                 if outer:

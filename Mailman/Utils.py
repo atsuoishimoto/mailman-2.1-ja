@@ -40,7 +40,6 @@ import email.Header
 import email.Iterators
 from email.header import decode_header, make_header
 from email.Errors import HeaderParseError
-from email.charset import Charset
 from types import UnicodeType
 from string import whitespace, digits
 try:
@@ -914,10 +913,9 @@ def oneline(s, cset):
         line = u2u_decode(s)
         return line.encode(cset)
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
-        # possibly charset problem. optimize with the cset (lcset possibly).
+        # possibly charset problem. optimize with the cset.
         s = EMPTYSTRING.join(s.splitlines())
-        cset_out = Charset(cset).output_charset
-        s = unicode(s, cset_out, 'replace').encode(cset, 'replace')
+        s = unicode(s, cset, 'replace').encode(cset, 'replace')
         return s
 
 
