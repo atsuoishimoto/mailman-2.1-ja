@@ -42,8 +42,9 @@ charset の優先順位を与える事で、できる限りリストのポリシ
 なるように PyKF (0.3.4) を同梱している。
 
 *インストール*
-通常の mailman と同様。pythonlib に pykf が入り、
-Handlers に iso2022jpfix.py が入る。
+python 2.5 以上 (not python 3.x) が必要。
+通常の mailman と同様の手順でインストール。
+pythonlib に pykf が入り、Handlers に iso2022jpfix.py が入る。
 
 *設定の詳細* (あなたのポリシーと責任で)
 1.Defaults.py に設定可能なパラメータを追加してある。
@@ -71,5 +72,6 @@ GLOBAL_PIPELINE.insert(1, 'iso2022jpfix')
 *以上*
 質問は mailman-users-jp@python.jp へどうぞ。
 ***
+2010/12/07 rev 3.
 2010/11/03 rev 2.
 2010/07/10 1st version
