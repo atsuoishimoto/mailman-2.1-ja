@@ -4,6 +4,24 @@ Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
 
 Here is a history of user visible changes to Mailman.
 
+2.1.15 (xx-xxx-xxxx)
+
+  i18n
+
+    - Fixed a missing format character in the Spanish translation.
+      Bug #670988.
+
+  Bug Fixes and other patches
+
+    - Fixed a problem where an emailed command in the Subject: header with a
+      non-ascii l10n of an 'Re:' prefix is ignored.  Bug #685261.
+
+    - Fixed a problem with approving a post by email when the body of the
+      approval mail is base64 encoded.  Bug #677115.
+
+    - Fixed the host name in the From: address of the owner notification from
+      bin/add_members.  Bug #666181.
+
 2.1.14 (20-Sep-2010)
 
   Security
