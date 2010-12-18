@@ -143,7 +143,7 @@ def process(mlist, msg, msgdata):
                         msg.set_param('DelSp', delsp)
                     wrap = False
                     break
-                except UnicodeError:
+                except (UnicodeError, TypeError):
                     continue
         except (LookupError, UnicodeError):
             pass

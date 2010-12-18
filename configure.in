@@ -83,6 +83,7 @@ fi
 AC_MSG_RESULT($version)
 
 # Check the email package version.
+# +j micro version is added by 100 (as of Python 2.7.1)
 AC_MSG_CHECKING(Python's email package)
 changequote(,)
 cat > conftest.py <<EOF
@@ -92,7 +93,7 @@ try:
 except ImportError:
     res = "not ok"
 else:
-    provided = (4, 0, 3)
+    provided = (4, 0, 103)
     version = tuple(int(v) for v in email.__version__.split('.'))
     if provided > version:
         res = "not ok"
