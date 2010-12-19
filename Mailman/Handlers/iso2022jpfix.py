@@ -18,7 +18,7 @@ def process(mlist, msg, msgdata):
         return
     except UnicodeError:
         s = pykf.tosjis(s, pykf.JIS)
-        s = unicode(s, 'cp932')
+        s = unicode(s, 'cp932', 'replace')
         s = s.encode('utf-8')
         del m['content-transfer-encoding']
         m.set_payload(s, 'utf-8')
