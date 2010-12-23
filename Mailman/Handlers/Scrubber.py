@@ -333,7 +333,7 @@ def process(mlist, msg, msgdata=None):
     # Now try encoding message by mcset, lcset, fbcset order.
     try:
         msg.set_payload(msgtext.encode(mcset), mcset)
-    except (UnicodeEncodeError, TypeError):
+    except (UnicodeEncodeError, TypeError, LookupError):
         try:
             msg.set_payload(msgtext.encode(lcset), lcset)
         except UnicodeEncodeError:

@@ -94,7 +94,9 @@ class Results:
         if part is None:
             # E.g the outer Content-Type: was text/html
             return
-        body = part.get_payload(decode=True)
+        # convert message into unicode because 'utf-8' message increasing
+        mcset = part.get_content_charset('us-ascii')
+        body = unicode(part.get_payload(decode=True), mcset, 'replace')
         # text/plain parts better have string payloads
         assert isinstance(body, StringType) or isinstance(body, UnicodeType)
         lines = body.splitlines()
