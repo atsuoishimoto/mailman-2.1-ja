@@ -915,7 +915,9 @@ def oneline(s, cset):
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
         # possibly charset problem. optimize with the cset.
         s = EMPTYSTRING.join(s.splitlines())
-        s = unicode(s, cset, 'replace').encode(cset, 'replace')
+        if type(s) != unicode:
+            s = unicode(s, cset, 'replace')
+        s = s.encode(cset, 'replace')
         return s
 
 
