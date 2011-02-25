@@ -1,4 +1,4 @@
-# Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
+# Copyright (C) 1998-2011 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -185,6 +185,7 @@ def main():
         msg = _('Private archive file not found')
         doc.SetTitle(msg)
         doc.AddItem(Header(2, msg))
+        print 'Status: 404 Not Found'
         print doc.Format()
         syslog('error', 'Private archive file not found: %s', true_filename)
     else:
