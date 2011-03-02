@@ -361,8 +361,9 @@ def show_pending_unsubs(mlist, form):
             mlist.HandleRequest(id, mm_cfg.DISCARD)
             continue
         num += 1
-        # addr should be string not unicode esp. if fullname is non-ascii
-        table.AddRow(['%s<br><em>%s</em>' % (str(addr), Utils.websafe(fullname)),
+        # While the address may be a unicode, it must be ascii
+        paddr = addr.encode('us-ascii', 'replace')
+        table.AddRow(['%s<br><em>%s</em>' % (paddr, Utils.websafe(fullname)),
                       RadioButtonArray(id, (_('Defer'),
                                             _('Approve'),
                                             _('Reject'),
