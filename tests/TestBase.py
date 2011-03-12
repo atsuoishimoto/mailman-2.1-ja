@@ -52,6 +52,7 @@ class TestBase(unittest.TestCase):
         mlist.Create('_xtest', 'test@dom.ain', 'xxxxx')
         mlist.host_name = 'dom.ain'
         mlist.web_page_url = 'http://www.dom.ain/mailman/'
+        mlist.preferred_language = 'en'
         mlist.Save()
         # This leaves the list in a locked state
         self._mlist = mlist

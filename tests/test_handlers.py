@@ -740,6 +740,8 @@ class TestDecorate(TestBase):
         mlist.msg_footer = 'footer'
         msg = email.message_from_string("""\
 From: aperson@dom.ain
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is a message.
 """)
@@ -756,6 +758,8 @@ footer""")
         mlist.real_name = 'XTest'
         msg = email.message_from_string("""\
 From: aperson@dom.ain
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is a message.
 """)
@@ -772,6 +776,8 @@ XTest footer""")
         mlist.real_name = 'XTest'
         msg = email.message_from_string("""\
 From: aperson@dom.ain
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is a message.
 """)
@@ -789,6 +795,8 @@ Here is a message.
         mlist.real_name = 'XTest'
         msg = email.message_from_string("""\
 From: aperson@dom.ain
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is a message.
 """)
@@ -804,6 +812,8 @@ Here is a message.
         mlist.msg_footer = '%(spooge)s footer'
         msg = email.message_from_string("""\
 From: aperson@dom.ain
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is a message.
 """)
@@ -1210,6 +1220,7 @@ yyy
 
     def test_convert_to_plaintext(self):
         # BAW: This test is dependent on your particular lynx version
+        # TK: adjusterd for newer lynx.
         eq = self.assertEqual
         msg = email.message_from_string("""\
 From: aperson@dom.ain
@@ -1221,7 +1232,7 @@ MIME-Version: 1.0
 """)
         MimeDel.process(self._mlist, msg, {})
         eq(msg.get_content_type(), 'text/plain')
-        eq(msg.get_payload(), '\n\n\n')
+        eq(msg.get_payload(), '\n\n')
 
     def test_deep_structure(self):
         eq = self.assertEqual
@@ -1581,6 +1592,8 @@ class TestToDigest(TestBase):
         msg = email.message_from_string("""From: aperson@dom.ain
 To: _xtest@dom.ain
 Subject: message number %(i)d
+MIME-Version: 1.0
+Content-Type: text/plain; charset='us-ascii'
 
 Here is message %(i)d
 """ % {'i' : i})
@@ -1588,6 +1601,8 @@ Here is message %(i)d
 
     def setUp(self):
         TestBase.setUp(self)
+        self._mlist.digest_members = {'a@example.com': 0, 'b@example.com': 0}
+        self._mlist.user_options = {'a@example.com': 8}
         self._path = os.path.join(self._mlist.fullpath(), 'digest.mbox')
         fp = open(self._path, 'w')
         g = Generator(fp)

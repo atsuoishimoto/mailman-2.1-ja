@@ -403,7 +403,6 @@ def send_i18n_digests(mlist, mboxfp):
     # RFC 1153
     plainmsg = '\n\n'.join(plainmsg)
     try:
-        lcset_out = Charset(lcset).output_codec
         plainmsg = plainmsg.encode(lcset_out)
         dcset = lcset_out
     except UnicodeError:
