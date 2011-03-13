@@ -201,6 +201,7 @@ URL: %(url)s
         subject = Utils.oneline(subject, self.lcset)
         date = submsg.get('date', _('no date'))
         who = submsg.get('from', _('unknown sender'))
+        who = Utils.oneline(who, self.lcset)
         size = len(str(submsg))
         self.msgtexts.append(unicode(_("""\
 An embedded message was scrubbed...
