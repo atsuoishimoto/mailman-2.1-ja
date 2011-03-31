@@ -38,6 +38,16 @@ Here is a history of user visible changes to Mailman.
 
   Bug Fixes and other patches
 
+    - Changed the subscribe CGI to strip leading and trailing whitespace from
+      the supplied email address.  Bug #745432.
+
+    - Changed the maximum number of arguments for the who command to be
+      considered administrivia from 2 to 1 to help avoid false positives.
+      Bug #739524.
+
+    - Added the list name as 'display-name' in added Sender: headers to help
+      mitigate Outlook et al 'on behalf of' displays.  Bug #736849.
+
     - Fixed a typo in the usage() definition cron/gate_news.  Bug #721015.
 
     - Fixed an uncaught KeyError when poster tries to cancel a post which was
