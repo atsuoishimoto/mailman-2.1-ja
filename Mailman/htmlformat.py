@@ -405,13 +405,14 @@ class Center(StdContainer):
 
 class Form(Container):
     def __init__(self, action='', method='POST', encoding=None, 
-                       mlist=None, contexts=None, *items):
+                       mlist=None, contexts=None, user=None, *items):
         apply(Container.__init__, (self,) +  items)
         self.action = action
         self.method = method
         self.encoding = encoding
         self.mlist = mlist
         self.contexts = contexts
+        self.user = user
 
     def set_action(self, action):
         self.action = action
@@ -426,7 +427,7 @@ class Form(Container):
         if self.mlist:
             output = output + \
                 '<input type="hidden" name="csrf_token" value="%s">\n' \
-                % csrf_token(self.mlist, self.contexts)
+                % csrf_token(self.mlist, self.contexts, self.user)
         output = output + Container.Format(self, indent+2)
         output = '%s\n%s</FORM>\n' % (output, spaces)
         return output

@@ -28,6 +28,8 @@ from Mailman.htmlformat import *
 
 from Mailman.i18n import _
 
+from Mailman.CSRFcheck import csrf_token
+
 
 EMPTYSTRING = ''
 BR = '<br>'
@@ -314,12 +316,17 @@ class HTMLFormatter:
             container.AddItem("</center>")
         return container
 
-    def FormatFormStart(self, name, extra=''):
+    def FormatFormStart(self, name, extra='',
+                        mlist=None, contexts=None, user=None):
         base_url = self.GetScriptURL(name)
         if extra:
             full_url = "%s/%s" % (base_url, extra)
         else:
             full_url = base_url
+        if mlist:
+            return ("""<form method="POST" action="%s">
+<input type="hidden" name="csrf_token" value="%s">""" 
+                % (full_url, csrf_token(mlist, contexts, user)))
         return ('<FORM Method=POST ACTION="%s">' % full_url)
 
     def FormatArchiveAnchor(self):
