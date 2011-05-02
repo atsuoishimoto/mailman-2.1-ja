@@ -187,7 +187,14 @@ def collapse_multipart_alternatives(msg):
         if subpart.get_content_type() == 'multipart/alternative':
             try:
                 firstalt = subpart.get_payload(0)
-                newpayload.append(firstalt)
+                if msg.get_content_type() == 'message/rfc822':
+                    # This is a multipart/alternative message in a
+                    # message/rfc822 part. We treat it specially so as not to
+                    # lose the headers.
+                    reset_payload(subpart, firstalt)
+                    newpayload.append(subpart)
+                else:
+                    newpayload.append(firstalt)
             except (IndexError, TypeError):
                 pass
         elif subpart.is_multipart():
@@ -201,9 +208,11 @@ def collapse_multipart_alternatives(msg):
 
 def recast_multipart(msg):
     # If we're left with a multipart message with only one sub-part, recast
-    # the message to just the sub-part.
+    # the message to just the sub-part, but not if the part is message/rfc822
+    # because we don't want to lose the headers.
     if msg.is_multipart():
-        if len(msg.get_payload()) == 1:
+        if (len(msg.get_payload()) == 1 and
+                msg.get_content_type() <> 'message/rfc822'):
             reset_payload(msg, msg.get_payload(0))
             # now that we've recast this part, check the subordinate parts
             recast_multipart(msg)

@@ -12,6 +12,16 @@ Here is a history of user visible changes to Mailman.
 
   New Features
 
+    - A new list poster password has been implemented.  This password may only
+      be used in Approved: or X-Approved: headers for pre-approving posts.
+      Using this password for that purpose precludes compromise of a more
+      valuable password sent in plain text email.  Bug #770581.
+
+    - A new mm_cfg.py setting AUTHENTICATION_COOKIE_LIFETIME has been added.
+      If this is set to a non-zero value, web authentication cookies will
+      expire that many seconds following their last use.  Its default value is
+      zero to preserve current behavior.
+
     - A new mm_cfg.py setting RESPONSE_INCLUDE_LEVEL has been added to control
       how much of the original message is included in automatic responses to
       email commands.  The default is 2 to preserve the prior behavior of
@@ -31,12 +41,44 @@ Here is a history of user visible changes to Mailman.
       is responded to or just logged.  It defaults to Yes which is different
       from prior behavior.  Bug #410236.
 
+    - Two new mm_cfg.py settings, BROKEN_BROWSER_WORKAROUND and
+      BROKEN_BROWSER_REPLACEMENTS, have been added to control escaping of
+      additional characters beyond the standard <, >, &, and " in the web UI.
+      See the documentation of these settings in Defaults.py.  The default
+      values for these settings result in no change from the prior release.
+      Bug #774588.
+
   i18n
 
     - Fixed a missing format character in the Spanish translation.
       Bug #670988.
 
   Bug Fixes and other patches
+
+    - Strengthened escaping of user web data by including some characters that
+      some older browsers misinterpret as < or >.
+
+    - Mailman now sets the 'secure' flag in cookies set via https URLs.
+      Bug #770377.
+
+    - Added a logout link to the admindb interface and made both admin and
+      admindb logout effective for a site admin cookie if allowed.
+      Bug #769318.
+
+    - Replaced the old Mailman logos and icon that install to Mailman's icons
+      directory with the new ones.  If you copy these elsewhere on your
+      server, please copy these new ones.
+
+    - Changed bin/genaliases to only call the POSTFIX_*_CMD commands once when
+      MTA = 'Postfix'.  Bug #266408.
+
+    - Added a report of the affected members to the warnings issued when
+      setting a list with digest members digestable=No and when setting a list
+      with non-digest members nondigestable=no.  Bug #761232.
+
+    - Fixed a problem where content filtering could remove the headers from
+      an attached message/rfc822 part if the message in that part is
+      multipart/alternative and collapse_alternatives is Yes.  Bug #757062.
 
     - Changed the subscribe CGI to strip leading and trailing whitespace from
       the supplied email address.  Bug #745432.
