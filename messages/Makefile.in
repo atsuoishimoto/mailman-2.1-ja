@@ -47,9 +47,13 @@ DIRSETGID=	chmod g+s
 MSGFMT= 	@PYTHON@ ../build/bin/msgfmt.py
 MSGMERGE=	msgmerge
 
+# Special care for Japanese UTF-8
+ICONV=		@PYTHON@ -c 'import re,sys;s=file(sys.argv[1]).read().decode("euc-jp");s=re.sub("EUC-JP","UTF-8",s);sys.stdout.write(s.encode("utf-8"))'
+
 # CVS available languages
 LANGUAGES=	ar ast ca cs da de es et eu fi fr gl he hr hu ia it ja ko lt \
-		nl no pl pt pt_BR ro ru sk sl sr sv tr uk vi zh_CN zh_TW
+		nl no pl pt pt_BR ro ru sk sl sr sv tr uk vi zh_CN zh_TW \
+		ja_JP.UTF8
 LANGDIRS=	$(LANGUAGES:%=messages/%/LC_MESSAGES)
 # Human readable po file
 POFILES=	$(LANGUAGES:%=%/LC_MESSAGES/mailman.po)
@@ -145,6 +149,10 @@ potfile: marked.files docstring.files
 %/LC_MESSAGES/mailman.po: mailman.pot
 	@echo "Merging new template file with existing translations"
 	$(MSGMERGE) -U $@ mailman.pot || touch $@
+
+# Special care for Japanese UTF-8
+ja_JP.UTF8/LC_MESSAGES/mailman.po: ja/LC_MESSAGES/mailman.po
+	mkdir -p ja_JP.UTF8/LC_MESSAGES && $(ICONV) ja/LC_MESSAGES/mailman.po > $@
 
 
 FORCE:
