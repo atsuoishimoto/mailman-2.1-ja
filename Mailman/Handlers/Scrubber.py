@@ -305,8 +305,11 @@ def process(mlist, msg, msgdata=None):
                                  # sets content-type to text/plain
                                  lcset))
             elif sanitize == 2:
-                # By leaving it alone, Pipermail will automatically escape it
-                pass
+                # Treating HTML as plain text, Pipermail will automatically
+                # escape it
+                cset = part.get_content_charset()
+                text = part.get_payload(decode=True)
+                msgtexts.append(unicode(text, cset, 'replace'))
             elif sanitize == 3:
                 # Pull it out as an attachment but leave it unescaped.  This
                 # is dangerous, but perhaps useful for heavily moderated
