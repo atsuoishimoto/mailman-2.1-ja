@@ -635,11 +635,14 @@ def MailmanLogo():
     if mm_cfg.IMAGE_LOGOS:
         def logo(file):
             return mm_cfg.IMAGE_LOGOS + file
-        mmlink = '<img src="%s" alt="Delivered by Mailman" border=0>' \
+        mmlink = '<img src="%s" alt="Delivered by Mailman" ' \
+                 'title="Delivered by Mailman" border=0>' \
                  '<br>version %s' % (logo(DELIVERED_BY), mm_cfg.VERSION)
-        pylink = '<img src="%s" alt="Python Powered" border=0>' % \
+        pylink = '<img src="%s" alt="Python Powered" ' \
+                 'title="Python Powered" border=0>' % \
                  logo(PYTHON_POWERED)
-        gnulink = '<img src="%s" alt="GNU\'s Not Unix" border=0>' % \
+        gnulink = '<img src="%s" alt="GNU\'s Not Unix" ' \
+                  'title="GNU\'s Not Unix" border=0>' % \
                   logo(GNU_HEAD)
         t.AddRow([mmlink, pylink, gnulink])
     else:
