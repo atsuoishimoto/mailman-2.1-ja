@@ -55,8 +55,14 @@ Here is a history of user visible changes to Mailman.
 
   Bug Fixes and other patches
 
-    - Strengthened escaping of user web data by including some characters that
-      some older browsers misinterpret as < or >.
+    #- Fixed a problem which could result in raw, undecoded message bodies
+    #  appearing in plain digests and archives.  Bug #787790.
+
+    - Fixed a problem in admindb.py where the character set for the display of
+      the message body excerpt was not correctly determined.  Bug #779751.
+
+    - Prevented setting user passwords with leading/trailing whitespace.
+      Bug #778088.
 
     - Mailman now sets the 'secure' flag in cookies set via https URLs.
       Bug #770377.
