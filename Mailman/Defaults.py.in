@@ -57,7 +57,12 @@ No = no = Off = off = False
 IMAGE_LOGOS = '/icons/'
 
 # The name of the Mailman favicon
-SHORTCUT_ICON = 'mm-icon.png'
+SHORTCUT_ICON = 'mailman.ico'
+
+# Banner images
+DELIVERED_BY = 'mailman.jpg'
+PYTHON_POWERED = 'python-powered-w.png'
+GNU_HEAD = 'gnu-head-tiny.png'
 
 # Don't change MAILMAN_URL, unless you want to point it at one of the mirrors.
 MAILMAN_URL = 'http://www.gnu.org/software/mailman/index.html'

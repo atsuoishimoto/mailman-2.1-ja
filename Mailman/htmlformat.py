@@ -625,9 +625,9 @@ GNU_URL     = 'http://www.gnu.org/'
 
 # The names of the image logo files.  These are concatentated onto
 # mm_cfg.IMAGE_LOGOS (not urljoined).
-DELIVERED_BY = 'mailman.jpg'
-PYTHON_POWERED = 'PythonPowered.png'
-GNU_HEAD = 'gnu-head-tiny.jpg'
+DELIVERED_BY = mm_cfg.DELIVERED_BY         # 'mailman.jpg'
+PYTHON_POWERED = mm_cfg.PYTHON_POWERED     # 'PythonPowered.png'
+GNU_HEAD = mm_cfg.GNU_HEAD                 # 'gnu-head-tiny.jpg'
 
 
 def MailmanLogo():
