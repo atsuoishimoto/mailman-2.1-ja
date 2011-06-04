@@ -30,8 +30,11 @@ from Mailman import Errors
 from Mailman.Cgi import Auth
 from Mailman.Logging.Syslog import syslog
 from Mailman import i18n
+from Mailman.CSRFcheck import csrf_check
 
 _ = i18n._
+
+AUTH_CONTEXTS = (mm_cfg.AuthListAdmin, mm_cfg.AuthSiteAdmin)
 
 
 
@@ -81,6 +84,18 @@ def main():
     # Must be authenticated to get any farther
     cgidata = cgi.FieldStorage()
 
+    # CSRF check
+    safe_params = ['VARHELP', 'adminpw', 'admlogin']
+    params = cgidata.keys()
+    if set(params) - set(safe_params):
+        csrf_checked = csrf_check(mlist, cgidata.getvalue('csrf_token'))
+    else:
+        csrf_checked = True
+    # if password is present, void cookie to force password authentication.
+    if cgidata.getvalue('adminpw'):
+        os.environ['HTTP_COOKIE'] = ''
+        csrf_checked = True
+
     # Editing the html for a list is limited to the list admin and site admin.
     if not mlist.WebAuthenticate((mm_cfg.AuthListAdmin,
                                   mm_cfg.AuthSiteAdmin),
@@ -125,7 +140,11 @@ def main():
 
     try:
         if cgidata.keys():
-            ChangeHTML(mlist, cgidata, template_name, doc)
+            if csrf_checked:
+                ChangeHTML(mlist, cgidata, template_name, doc)
+            else:
+                doc.addError(
+                  _('The form lifetime has expired. (request forgery check)'))
         FormatHTML(mlist, doc, template_name, template_info)
     finally:
         doc.AddItem(mlist.GetMailmanFooter())
@@ -144,7 +163,8 @@ def FormatHTML(mlist, doc, template_name, template_info):
     doc.AddItem(FontSize("+1", link))
     doc.AddItem('<p>')
     doc.AddItem('<hr>')
-    form = Form(mlist.GetScriptURL('edithtml') + '/' + template_name)
+    form = Form(mlist.GetScriptURL('edithtml') + '/' + template_name,
+               mlist=mlist, contexts=AUTH_CONTEXTS)
     text = Utils.maketext(template_name, raw=1, mlist=mlist)
     # MAS: Don't websafe twice.  TextArea does it.
     form.AddItem(TextArea('html_code', text, rows=40, cols=75))

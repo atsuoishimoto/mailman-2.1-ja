@@ -108,6 +108,9 @@ ALLOW_SITE_ADMIN_COOKIES = No
 # expire that many seconds following their last use.
 AUTHENTICATION_COOKIE_LIFETIME = 0
 
+# Form lifetime is set against Cross Site Request Forgery.
+FORM_LIFETIME = hours(1)
+
 # Command that is used to convert text/html parts into plain text.  This
 # should output results to standard output.  %(filename)s will contain the
 # name of the temporary file that the program should operate on.
