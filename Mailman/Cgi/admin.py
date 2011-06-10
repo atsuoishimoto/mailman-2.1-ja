@@ -1194,6 +1194,14 @@ def mass_subscribe(mlist, container):
     table.AddCellInfo(table.GetCurrentRowIndex(), 0, colspan=2)
     table.AddRow([Italic(Label(_('...or specify a file to upload:'))),
                   FileUpload('subscribees_upload', cols='50')])
+    table.AddRow([
+        Label(_("""Synchronize member with this file? Note that addresses in
+                textarea box is ignored if this is checked and upload file
+                is present, while the check is ignored if there is no upload
+                file.""")),
+        CheckBoxArray('synchronize', (_('Synchronize'),), values=(1,))])
+    table.AddCellInfo(table.GetCurrentRowIndex(), 0, bgcolor=GREY)
+    table.AddCellInfo(table.GetCurrentRowIndex(), 1, bgcolor=GREY)
     container.AddItem(Center(table))
     # Invitation text
     table.AddRow(['&nbsp;', '&nbsp;'])
@@ -1351,9 +1359,16 @@ def change_options(mlist, category, subcat, cgidata, doc):
     if category <> 'members':
         gui.handleForm(mlist, category, subcat, cgidata, doc)
     # mass subscription, removal processing for members category
-    subscribers = ''
-    subscribers += cgidata.getvalue('subscribees', '')
-    subscribers += cgidata.getvalue('subscribees_upload', '')
+    # Get synchronize mode flag
+    synchronize = int(cgidata.getvalue('synchronize', '0'))
+    if synchronize:
+        # only upload file is used in sync mode
+        subscribers = cgidata.getvalue('subscribees_upload', '')
+        if not subscribers: synchronize = 0
+    if not synchronize:
+        subscribers = ''
+        subscribers += cgidata.getvalue('subscribees', '')
+        subscribers += cgidata.getvalue('subscribees_upload', '')
     if subscribers:
         entries = filter(None, [n.strip() for n in subscribers.splitlines()])
         send_welcome_msg = safeint('send_welcome_msg_to_this_batch',
@@ -1393,7 +1408,9 @@ def change_options(mlist, category, subcat, cgidata, doc):
                                             send_admin_notif, invitation,
                                             whence='admin mass sub')
             except Errors.MMAlreadyAMember:
-                subscribe_errors.append((safeentry, _('Already a member')))
+                # Don't notice in synchronize mode
+                if not synchronize:
+                    subscribe_errors.append((safeentry, _('Already a member')))
             except Errors.MMBadEmailError:
                 if userdesc.address == '':
                     subscribe_errors.append((_('&lt;blank line&gt;'),
@@ -1425,6 +1442,13 @@ def change_options(mlist, category, subcat, cgidata, doc):
             items = ['%s -- %s' % (x0, x1) for x0, x1 in subscribe_errors]
             doc.AddItem(UnorderedList(*items))
             doc.AddItem('<p>')
+    # Synchronize mode removal calculation
+    if synchronize and entries:
+        current_members = mlist.members.keys()
+        new_members = [parseaddr(entry)[1] for entry in entries]
+        syncremoves = list(set(current_members) - set(new_members))
+    else:
+        syncremoves = None
     # Unsubscriptions
     removals = ''
     if cgidata.has_key('unsubscribees'):
@@ -1432,12 +1456,20 @@ def change_options(mlist, category, subcat, cgidata, doc):
     if cgidata.has_key('unsubscribees_upload') and \
            cgidata['unsubscribees_upload'].value:
         removals += cgidata['unsubscribees_upload'].value
-    if removals:
-        names = filter(None, [n.strip() for n in removals.splitlines()])
-        send_unsub_notifications = int(
-            cgidata['send_unsub_notifications_to_list_owner'].value)
-        userack = int(
-            cgidata['send_unsub_ack_to_this_batch'].value)
+    if removals or syncremoves:
+        if syncremoves:
+            names = syncremoves
+            # unsub notifications are substituted with subscribe ones.
+            send_unsub_notifications = int(
+                cgidata.getvalue('send_notifications_to_list_owner'))
+            userack = int(
+                cgidata.getvalue('send_welcome_msg_to_this_batch'))
+        else:
+            names = filter(None, [n.strip() for n in removals.splitlines()])
+            send_unsub_notifications = int(
+                cgidata['send_unsub_notifications_to_list_owner'].value)
+            userack = int(
+                cgidata['send_unsub_ack_to_this_batch'].value)
         unsubscribe_errors = []
         unsubscribe_success = []
         for addr in names:
