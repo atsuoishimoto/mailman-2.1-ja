@@ -347,7 +347,10 @@ def send_i18n_digests(mlist, mboxfp):
         hdrtxt = []
         for h in mm_cfg.PLAIN_DIGEST_KEEP_HEADERS:
             if msg[h]:
-                uh = Utils.wrap('%s: %s' % (h, Utils.u2u_decode(msg[h])))
+                try:
+                    uh = Utils.wrap('%s: %s' % (h, Utils.u2u_decode(msg[h])))
+                except UnicodeError:
+                    uh = Utils.wrap('%s: %s' % (h, msg[h]))
                 uh = '\n\t'.join(uh.split('\n'))
                 hdrtxt.append(uh)
         plainmsg.append('\n'.join(hdrtxt))
