@@ -51,8 +51,8 @@ MSGMERGE=	msgmerge
 ICONV=		@PYTHON@ -c 'import re,sys;s=file(sys.argv[1]).read().decode("euc-jp");s=re.sub("EUC-JP","UTF-8",s);sys.stdout.write(s.encode("utf-8"))'
 
 # CVS available languages
-LANGUAGES=	ar ast ca cs da de es et eu fi fr gl he hr hu ia it ja ko lt \
-		nl no pl pt pt_BR ro ru sk sl sr sv tr uk vi zh_CN zh_TW \
+LANGUAGES=	ar ast ca cs da de el es et eu fi fr gl he hr hu ia it ja ko \
+		lt nl no pl pt pt_BR ro ru sk sl sr sv tr uk vi zh_CN zh_TW \
 		ja_JP.UTF8
 LANGDIRS=	$(LANGUAGES:%=messages/%/LC_MESSAGES)
 # Human readable po file
