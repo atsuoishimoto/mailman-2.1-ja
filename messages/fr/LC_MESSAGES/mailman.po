@@ -5,7 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mailman 2.1b6\n"
+<<<<<<< TREE
 "POT-Creation-Date: Thu Nov 10 17:50:06 2011\n"
+=======
+"POT-Creation-Date: Sat Nov 26 10:46:18 2011\n"
+>>>>>>> MERGE-SOURCE
 "PO-Revision-Date: 2003-01-22 12:50-0500\n"
 "Last-Translator: Pascal George <george@lyon.inserm.fr>\n"
 "Language-Team: fr <traduc@traduc.org>\n"
@@ -238,16 +242,27 @@ msgstr "Modérateur"
 msgid "Administrator"
 msgstr "Administrateur"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:78 Mailman/Cgi/admindb.py:97 Mailman/Cgi/confirm.py:62
 #: Mailman/Cgi/edithtml.py:73 Mailman/Cgi/listinfo.py:54
 #: Mailman/Cgi/options.py:81 Mailman/Cgi/private.py:108
+=======
+#: Mailman/Cgi/admin.py:76 Mailman/Cgi/admindb.py:93 Mailman/Cgi/confirm.py:62
+#: Mailman/Cgi/edithtml.py:71 Mailman/Cgi/listinfo.py:54
+#: Mailman/Cgi/options.py:78 Mailman/Cgi/private.py:108
+>>>>>>> MERGE-SOURCE
 #: Mailman/Cgi/rmlist.py:64 Mailman/Cgi/roster.py:59
 #: Mailman/Cgi/subscribe.py:62
 msgid "No such list <em>%(safelistname)s</em>"
 msgstr "Liste <em>%(safelistname)s</em> inexistante"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:105 Mailman/Cgi/admindb.py:125
 #: Mailman/Cgi/edithtml.py:105 Mailman/Cgi/private.py:135
+=======
+#: Mailman/Cgi/admin.py:91 Mailman/Cgi/admindb.py:109
+#: Mailman/Cgi/edithtml.py:91 Mailman/Cgi/private.py:135
+>>>>>>> MERGE-SOURCE
 msgid "Authorization failed."
 msgstr "Echec de l'autorisation."
 
@@ -567,10 +582,18 @@ msgstr "Rejeter"
 msgid "Hold"
 msgstr "En attente"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:792 Mailman/Cgi/admindb.py:350
 #: Mailman/Cgi/admindb.py:411 Mailman/Cgi/admindb.py:453
 #: Mailman/Cgi/admindb.py:691 Mailman/Gui/ContentFilter.py:37
 #: Mailman/Gui/Privacy.py:216 Mailman/Gui/Privacy.py:297
+=======
+#: Mailman/Cgi/admin.py:773 Mailman/Cgi/admindb.py:330
+#: Mailman/Cgi/admindb.py:389 Mailman/Cgi/admindb.py:431
+#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:93
+#: Mailman/Gui/ContentFilter.py:37 Mailman/Gui/Privacy.py:216
+#: Mailman/Gui/Privacy.py:297
+>>>>>>> MERGE-SOURCE
 msgid "Discard"
 msgstr "Supprimer"
 
@@ -1168,8 +1191,13 @@ msgstr "Votre décision"
 msgid "Reason for refusal"
 msgstr "Motifs du refus"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admindb.py:348 Mailman/Cgi/admindb.py:409
 #: Mailman/Cgi/admindb.py:691
+=======
+#: Mailman/Cgi/admindb.py:328 Mailman/Cgi/admindb.py:387
+#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:90
+>>>>>>> MERGE-SOURCE
 msgid "Approve"
 msgstr "Approuver"
 
@@ -2200,51 +2228,104 @@ msgstr "Page des options utilisateur spécifiques"
 msgid "Welcome email text file"
 msgstr "Fichier texte message de Bienvenue"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:63
+=======
+#: Mailman/Cgi/edithtml.py:49
+#, fuzzy
+msgid "Digest masthead"
+msgstr "en-tête des messages groupés"
+
+#: Mailman/Cgi/edithtml.py:61
+>>>>>>> MERGE-SOURCE
 msgid "List name is required."
 msgstr "Le nom de la liste est requis."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:117
+=======
+#: Mailman/Cgi/edithtml.py:103
+>>>>>>> MERGE-SOURCE
 msgid "%(realname)s -- Edit html for %(template_info)s"
 msgstr "%(realname)s -- Modifier html pour %(template_info)s"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:123
+=======
+#: Mailman/Cgi/edithtml.py:109
+>>>>>>> MERGE-SOURCE
 msgid "Edit HTML : Error"
 msgstr "Modifier HTML : Erreur"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:124
+=======
+#: Mailman/Cgi/edithtml.py:110
+>>>>>>> MERGE-SOURCE
 msgid "%(safetemplatename)s: Invalid template"
 msgstr "%(safetemplatename)s : modèle invalide"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:129 Mailman/Cgi/edithtml.py:130
+=======
+#: Mailman/Cgi/edithtml.py:115 Mailman/Cgi/edithtml.py:116
+>>>>>>> MERGE-SOURCE
 msgid "%(realname)s -- HTML Page Editing"
 msgstr "%(realname)s -- Modification de Page HTML"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:131
+=======
+#: Mailman/Cgi/edithtml.py:117
+>>>>>>> MERGE-SOURCE
 msgid "Select page to edit:"
 msgstr "Sélectionner la page à modifier :"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:161
+=======
+#: Mailman/Cgi/edithtml.py:143
+>>>>>>> MERGE-SOURCE
 msgid "View or edit the list configuration information."
 msgstr "Voir ou modifier les informations de configuration de la liste."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:171
+=======
+#: Mailman/Cgi/edithtml.py:152
+>>>>>>> MERGE-SOURCE
 msgid "When you are done making changes..."
 msgstr "Quand vous aurez fini de faire les modifications..."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:172
+=======
+#: Mailman/Cgi/edithtml.py:153
+>>>>>>> MERGE-SOURCE
 msgid "Submit Changes"
 msgstr "Valider les modifications"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:179
+=======
+#: Mailman/Cgi/edithtml.py:160
+>>>>>>> MERGE-SOURCE
 msgid "Can't have empty html page."
 msgstr "Impossible d'avoir une page html vide"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:180
+=======
+#: Mailman/Cgi/edithtml.py:161
+>>>>>>> MERGE-SOURCE
 msgid "HTML Unchanged."
 msgstr "HTML inchangé"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:186
+=======
+#: Mailman/Cgi/edithtml.py:167
+>>>>>>> MERGE-SOURCE
 msgid ""
 "The page you saved contains suspicious HTML that could\n"
 "potentially expose your users to cross-site scripting attacks.  This change\n"
@@ -2253,19 +2334,35 @@ msgid ""
 "             "
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:191
+=======
+#: Mailman/Cgi/edithtml.py:172
+>>>>>>> MERGE-SOURCE
 msgid "See "
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:194
+=======
+#: Mailman/Cgi/edithtml.py:175
+>>>>>>> MERGE-SOURCE
 msgid "FAQ 4.48."
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:195
+=======
+#: Mailman/Cgi/edithtml.py:176
+>>>>>>> MERGE-SOURCE
 msgid "Page Unchanged."
 msgstr "Page inchangée"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:213
+=======
+#: Mailman/Cgi/edithtml.py:194
+>>>>>>> MERGE-SOURCE
 msgid "HTML successfully updated."
 msgstr "HTML mis à jour avec succès."
 
@@ -3081,7 +3178,8 @@ msgstr ""
 msgid "Bad approval password given.  Held message is still being held."
 msgstr "Mauvais mot de passe d'approbation. Le message en attente le reste."
 
-#: Mailman/Commands/cmd_confirm.py:87
+#: Mailman/Commands/cmd_confirm.py:89 Mailman/Commands/cmd_confirm.py:92
+#: Mailman/Commands/cmd_confirm.py:95
 msgid "Confirmation succeeded"
 msgstr "Confirmation réussie"
 
@@ -8210,11 +8308,19 @@ msgstr "[Message rejeté par filtrage de contenu]"
 msgid "digest footer"
 msgstr "pied de page des remises groupées"
 
+<<<<<<< TREE
 #: Mailman/Handlers/ToDigest.py:372
+=======
+#: Mailman/Handlers/ToDigest.py:361 Mailman/Handlers/ToDigest.py:369
+>>>>>>> MERGE-SOURCE
 msgid "Digest Footer"
 msgstr "Pied de page des remises groupées"
 
+<<<<<<< TREE
 #: Mailman/Handlers/ToDigest.py:384
+=======
+#: Mailman/Handlers/ToDigest.py:376
+>>>>>>> MERGE-SOURCE
 msgid "End of "
 msgstr "Fin de "
 

@@ -8,7 +8,7 @@ Here is a history of user visible changes to Mailman.
 
   Security
 
-    - Strengthened the validation of email address domains.
+    - Strengthened the validation of email addresses.
 
     - An XSS vulnerability, CVE-2011-0707, has been fixed.
 
@@ -60,6 +60,8 @@ Here is a history of user visible changes to Mailman.
 
   i18n
 
+    - Added some missing German templates from Egon Frerich.
+
     - Added Greek translation from Antonis Limperis.
 
     - A few errors in the Basque translation are fixed.  Bug #836861.
@@ -70,6 +72,22 @@ Here is a history of user visible changes to Mailman.
       Bug #670988.
 
   Bug Fixes and other patches
+
+    - Changed subject prefixing to allow for possible whitespace between an
+      'Re' and the following colon when determining how to add the prefix.
+      Bug #893290.
+
+    - Fixed a problem where topics regexps would not match RFC 2047 encoded
+      Keywords: and/or Subject: headers.  Bug #891676.
+
+    - Fixed misleading response to an email approval of a held message.
+      Bug #889968.
+
+    - Added masthead.txt to the list of templates that can be edited via the
+      web admin interface.  Bug #266805.
+
+    - Changed the way digest_footer is added to the RFC 1153 (plain) format
+      digest for RFC compliance.  Bug #887610.
 
     - Fixed cron/checkdbs to report unsubscriptions waiting approval.
       Bug #873821.

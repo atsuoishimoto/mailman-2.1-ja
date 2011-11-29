@@ -5,7 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
+<<<<<<< TREE
 "POT-Creation-Date: Thu Nov 10 17:50:06 2011\n"
+=======
+"POT-Creation-Date: Sat Nov 26 10:46:18 2011\n"
+>>>>>>> MERGE-SOURCE
 "PO-Revision-Date: 2002-03-28 19:21+09:00\n"
 "Last-Translator: Hyejin Soang, Wongyo Jung<redcloak@igrus.inha.ac.kr, "
 "andsoon@igrus.inha.ac.kr>\n"
@@ -255,16 +259,27 @@ msgstr "등록관리자"
 msgid "Administrator"
 msgstr "관리자"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:78 Mailman/Cgi/admindb.py:97 Mailman/Cgi/confirm.py:62
 #: Mailman/Cgi/edithtml.py:73 Mailman/Cgi/listinfo.py:54
 #: Mailman/Cgi/options.py:81 Mailman/Cgi/private.py:108
+=======
+#: Mailman/Cgi/admin.py:76 Mailman/Cgi/admindb.py:93 Mailman/Cgi/confirm.py:62
+#: Mailman/Cgi/edithtml.py:71 Mailman/Cgi/listinfo.py:54
+#: Mailman/Cgi/options.py:78 Mailman/Cgi/private.py:108
+>>>>>>> MERGE-SOURCE
 #: Mailman/Cgi/rmlist.py:64 Mailman/Cgi/roster.py:59
 #: Mailman/Cgi/subscribe.py:62
 msgid "No such list <em>%(safelistname)s</em>"
 msgstr "<em>%(safelistname)s</em> 라는 메일링 리스트가 존재하지 않습니다."
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:105 Mailman/Cgi/admindb.py:125
 #: Mailman/Cgi/edithtml.py:105 Mailman/Cgi/private.py:135
+=======
+#: Mailman/Cgi/admin.py:91 Mailman/Cgi/admindb.py:109
+#: Mailman/Cgi/edithtml.py:91 Mailman/Cgi/private.py:135
+>>>>>>> MERGE-SOURCE
 msgid "Authorization failed."
 msgstr "인성 실패"
 
@@ -577,10 +592,18 @@ msgstr "거절하기"
 msgid "Hold"
 msgstr "잡아두기"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admin.py:792 Mailman/Cgi/admindb.py:350
 #: Mailman/Cgi/admindb.py:411 Mailman/Cgi/admindb.py:453
 #: Mailman/Cgi/admindb.py:691 Mailman/Gui/ContentFilter.py:37
 #: Mailman/Gui/Privacy.py:216 Mailman/Gui/Privacy.py:297
+=======
+#: Mailman/Cgi/admin.py:773 Mailman/Cgi/admindb.py:330
+#: Mailman/Cgi/admindb.py:389 Mailman/Cgi/admindb.py:431
+#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:93
+#: Mailman/Gui/ContentFilter.py:37 Mailman/Gui/Privacy.py:216
+#: Mailman/Gui/Privacy.py:297
+>>>>>>> MERGE-SOURCE
 msgid "Discard"
 msgstr "버리기"
 
@@ -1167,8 +1190,13 @@ msgstr "당신의 결정"
 msgid "Reason for refusal"
 msgstr "거절 이유"
 
+<<<<<<< TREE
 #: Mailman/Cgi/admindb.py:348 Mailman/Cgi/admindb.py:409
 #: Mailman/Cgi/admindb.py:691
+=======
+#: Mailman/Cgi/admindb.py:328 Mailman/Cgi/admindb.py:387
+#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:90
+>>>>>>> MERGE-SOURCE
 msgid "Approve"
 msgstr "승인하기"
 
@@ -2139,51 +2167,104 @@ msgstr "사용자 정의 페이지"
 msgid "Welcome email text file"
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:63
+=======
+#: Mailman/Cgi/edithtml.py:49
+#, fuzzy
+msgid "Digest masthead"
+msgstr "묶음배달 머릿말"
+
+#: Mailman/Cgi/edithtml.py:61
+>>>>>>> MERGE-SOURCE
 msgid "List name is required."
 msgstr "리스트 이름이 필요합니다."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:117
+=======
+#: Mailman/Cgi/edithtml.py:103
+>>>>>>> MERGE-SOURCE
 msgid "%(realname)s -- Edit html for %(template_info)s"
 msgstr "%(realname)s -- %(template_info)s HTML 수정하기"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:123
+=======
+#: Mailman/Cgi/edithtml.py:109
+>>>>>>> MERGE-SOURCE
 msgid "Edit HTML : Error"
 msgstr "HTML 수정 : 에러"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:124
+=======
+#: Mailman/Cgi/edithtml.py:110
+>>>>>>> MERGE-SOURCE
 msgid "%(safetemplatename)s: Invalid template"
 msgstr "%(safetemplatename)s: 잘못된 템플릿"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:129 Mailman/Cgi/edithtml.py:130
+=======
+#: Mailman/Cgi/edithtml.py:115 Mailman/Cgi/edithtml.py:116
+>>>>>>> MERGE-SOURCE
 msgid "%(realname)s -- HTML Page Editing"
 msgstr "%(realname)s -- HTML 페이지 수정하기"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:131
+=======
+#: Mailman/Cgi/edithtml.py:117
+>>>>>>> MERGE-SOURCE
 msgid "Select page to edit:"
 msgstr "수정할 페이지를 선택하세요:"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:161
+=======
+#: Mailman/Cgi/edithtml.py:143
+>>>>>>> MERGE-SOURCE
 msgid "View or edit the list configuration information."
 msgstr "메일링 리스트 설정 정보 수정, 혹은 보기."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:171
+=======
+#: Mailman/Cgi/edithtml.py:152
+>>>>>>> MERGE-SOURCE
 msgid "When you are done making changes..."
 msgstr "수정을 다 하셨다면 \"변경하기\" 를 눌러주세요."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:172
+=======
+#: Mailman/Cgi/edithtml.py:153
+>>>>>>> MERGE-SOURCE
 msgid "Submit Changes"
 msgstr "변경하기"
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:179
+=======
+#: Mailman/Cgi/edithtml.py:160
+>>>>>>> MERGE-SOURCE
 msgid "Can't have empty html page."
 msgstr "빈 html 페이지를 가질 수 없습니다."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:180
+=======
+#: Mailman/Cgi/edithtml.py:161
+>>>>>>> MERGE-SOURCE
 msgid "HTML Unchanged."
 msgstr "HTML 이 변경되지 않았습니다."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:186
+=======
+#: Mailman/Cgi/edithtml.py:167
+>>>>>>> MERGE-SOURCE
 msgid ""
 "The page you saved contains suspicious HTML that could\n"
 "potentially expose your users to cross-site scripting attacks.  This change\n"
@@ -2192,20 +2273,36 @@ msgid ""
 "             "
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:191
+=======
+#: Mailman/Cgi/edithtml.py:172
+>>>>>>> MERGE-SOURCE
 msgid "See "
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:194
+=======
+#: Mailman/Cgi/edithtml.py:175
+>>>>>>> MERGE-SOURCE
 msgid "FAQ 4.48."
 msgstr ""
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:195
+=======
+#: Mailman/Cgi/edithtml.py:176
+>>>>>>> MERGE-SOURCE
 #, fuzzy
 msgid "Page Unchanged."
 msgstr "HTML 이 변경되지 않았습니다."
 
+<<<<<<< TREE
 #: Mailman/Cgi/edithtml.py:213
+=======
+#: Mailman/Cgi/edithtml.py:194
+>>>>>>> MERGE-SOURCE
 msgid "HTML successfully updated."
 msgstr "HTML 이 성공적으로 업데이트 되었습니다."
 
@@ -2975,7 +3072,8 @@ msgstr ""
 msgid "Bad approval password given.  Held message is still being held."
 msgstr ""
 
-#: Mailman/Commands/cmd_confirm.py:87
+#: Mailman/Commands/cmd_confirm.py:89 Mailman/Commands/cmd_confirm.py:92
+#: Mailman/Commands/cmd_confirm.py:95
 #, fuzzy
 msgid "Confirmation succeeded"
 msgstr "확인 문자열:"
@@ -7150,11 +7248,19 @@ msgstr ""
 msgid "digest footer"
 msgstr "묶음배달 꼬리말"
 
+<<<<<<< TREE
 #: Mailman/Handlers/ToDigest.py:372
+=======
+#: Mailman/Handlers/ToDigest.py:361 Mailman/Handlers/ToDigest.py:369
+>>>>>>> MERGE-SOURCE
 msgid "Digest Footer"
 msgstr "묶음배달 꼬리말"
 
+<<<<<<< TREE
 #: Mailman/Handlers/ToDigest.py:384
+=======
+#: Mailman/Handlers/ToDigest.py:376
+>>>>>>> MERGE-SOURCE
 msgid "End of "
 msgstr "끝부분 --"
 

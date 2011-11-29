@@ -1,4 +1,4 @@
-# Copyright (C) 1998-2010 by the Free Software Foundation, Inc.
+# Copyright (C) 1998-2011 by the Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -379,7 +379,9 @@ def send_i18n_digests(mlist, mboxfp):
         # hate the way that VM does that and I think it's confusing to users,
         # so don't do it unless there's a clamor.
         plainmsg.append(separator30)
+        plainmsg.append(unicode('Subject: ' + _('Digest Footer'), lcset))
         plainmsg.append(unicode(footertxt, lcset))
+        plainmsg.append(separator30)
     # Do the last bit of stuff for each digest type
     signoff = _('End of ') + digestid
     # MIME
