@@ -11604,9 +11604,8 @@ msgid "Pending subscriptions:"
 msgstr "ÊÝÎ±Ãæ¤Î²ñ°÷ÅÐÏ¿:"
 
 #: cron/checkdbs:155
-#, fuzzy
 msgid "Pending unsubscriptions:"
-msgstr "ÊÝÎ±Ãæ¤Î²ñ°÷ÅÐÏ¿:"
+msgstr "ÊÝÎ±Ãæ¤ÎÂà²ñ¿½ÀÁ:"
 
 #: cron/checkdbs:162
 msgid ""
