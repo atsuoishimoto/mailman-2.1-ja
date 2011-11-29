@@ -67,6 +67,14 @@ def process(mlist, msg, msgdata):
     fasttrack = msgdata.get('_fasttrack')
     if not msgdata.get('isdigest') and not fasttrack:
         try:
+            # put new message id for regular posting, because Gmail treats
+            # them as idential message and discard.
+            mid = msg.get('message-id', '')
+            if mm_cfg.USE_MAILMAN_MESSAGE_ID and mid:
+                msg['X-Mailman-Original-Message-ID'] = mid
+                del msg['message-id']
+                msg['Message-ID'] = Utils.unique_message_id(mlist)
+            # and then, cook prefix.
             prefix_subject(mlist, msg, msgdata)
         except (UnicodeError, ValueError):
             # TK: Sometimes subject header is not MIME encoded for 8bit

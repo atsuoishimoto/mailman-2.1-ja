@@ -742,11 +742,12 @@ def get_site_email(hostname=None, extra=None):
 # still possible that we'll vend out more than one such message-id per second,
 # so we prepend a monotonically incrementing serial number.  It's highly
 # unlikely that within a single second, there'll be a pid wraparound.
+# And, add the post_id for current number of regular message.
 _serial = 0
 def unique_message_id(mlist):
     global _serial
-    msgid = '<mailman.%d.%d.%d.%s@%s>' % (
-        _serial, time.time(), os.getpid(),
+    msgid = '<mailman.%d.%d.%d.%d.%s@%s>' % (
+        mlist.post_id, _serial, time.time(), os.getpid(),
         mlist.internal_name(), mlist.host_name)
     _serial += 1
     return msgid

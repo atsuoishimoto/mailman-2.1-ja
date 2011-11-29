@@ -536,6 +536,12 @@ NNTP_REWRITE_DUPLICATE_HEADERS = [
 # may wish to remove these headers by setting this to Yes.
 REMOVE_DKIM_HEADERS = No
 
+# Gmail treats Message-ID as uniqness of messages and discard later messages.
+# If we set this to Yes, then Gmail can show your original post and delivered
+# message as separate ones.  It will then help you to know if the mail has
+# been safely delivered.
+USE_MAILMAN_MESSAGE_ID = No
+
 # All `normal' messages which are delivered to the entire list membership go
 # through this pipeline of handler modules.  Lists themselves can override the
 # global pipeline by defining a `pipeline' attribute.
