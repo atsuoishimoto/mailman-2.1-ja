@@ -1,0 +1,37 @@
+日本語の NEWS
+
+日本語対応バージョンの基本は README.japan.utf-8 に記したとおりである
+が、ちまたに流れるバグ修正や新機能を取り入れて +jN バージョンをリリー
+スしている。
+本修正に関しては committer の健康問題もあり、間もなく全ての commit 
+を終了して以後の修正、本家への追従は打ち切られるであろう。
+mailman-3.0 のリリースに合わせる形で、3.0 新機能の導入と日本語への翻訳
+がなされることを願っている。
+(2011/12/01 by tokio.kikuchi@gmail.com, tkikuchi@is.kochi-u.ac.jp)
+
+日本語バージョン (+j7まで) に追加された機能
+
+- CSRF (Cross Site Request Forgery) 対策の強化。
+  lp:~tkikuchi/mailman/form-lifetime として Merge Proposal されている。
+  admin/admindb などの Form に token を与え、それに「寿命」を設定する
+  ことで CSRF の可能性をほぼゼロにする。
+
+- 「まとめて会員登録」に、同期モードを追加。
+  ファイルアップロードにのみ対応で、そのファイルに記入が無い会員は退会
+  となる。コマンドラインでの bin/sync_members に相当するが、まとめ読み
+  を区別することができないので注意。
+
+- Utils.u2u_decode() の修正: RFC-2047 では、MIME Header の行替えは構成
+  される文字の途中で起こってはいけないが、それに従っていない MUA から
+  のメールがダイジェスト配信でエラーになっていた。エラーを許容するよう
+  に修正。
+
+- Gmail では、一度システムを通過した Message-ID を持つメールは２度目以
+  降破棄されてしまうため、Bcc で自分宛のコピーを確保しておかないとメッ
+  セージのスレッド表示がおかしくなる。また Bcc していても Subject 
+  Prefix の結果を見ることができない。Mailman を通過する際に Message-ID 
+  を新規に振ることで Gmail で表示されるようにする。
+  mm_cfg.py において、USE_MAILMAN_MESSAGE_ID を Yes にしておくことで、
+  この機能を有効にすることができる。
+
+
