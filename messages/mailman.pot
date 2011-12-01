@@ -5,11 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-<<<<<<< TREE
-"POT-Creation-Date: Thu Nov 10 17:50:06 2011\n"
-=======
-"POT-Creation-Date: Sat Nov 26 10:46:18 2011\n"
->>>>>>> MERGE-SOURCE
+"POT-Creation-Date: Tue Nov 29 13:28:23 2011\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,32 +240,21 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
-<<<<<<< TREE
 #: Mailman/Cgi/admin.py:78 Mailman/Cgi/admindb.py:97 Mailman/Cgi/confirm.py:62
-#: Mailman/Cgi/edithtml.py:73 Mailman/Cgi/listinfo.py:54
+#: Mailman/Cgi/edithtml.py:74 Mailman/Cgi/listinfo.py:54
 #: Mailman/Cgi/options.py:81 Mailman/Cgi/private.py:108
-=======
-#: Mailman/Cgi/admin.py:76 Mailman/Cgi/admindb.py:93 Mailman/Cgi/confirm.py:62
-#: Mailman/Cgi/edithtml.py:71 Mailman/Cgi/listinfo.py:54
-#: Mailman/Cgi/options.py:78 Mailman/Cgi/private.py:108
->>>>>>> MERGE-SOURCE
 #: Mailman/Cgi/rmlist.py:64 Mailman/Cgi/roster.py:59
 #: Mailman/Cgi/subscribe.py:62
 msgid "No such list <em>%(safelistname)s</em>"
 msgstr ""
 
-<<<<<<< TREE
 #: Mailman/Cgi/admin.py:105 Mailman/Cgi/admindb.py:125
-#: Mailman/Cgi/edithtml.py:105 Mailman/Cgi/private.py:135
-=======
-#: Mailman/Cgi/admin.py:91 Mailman/Cgi/admindb.py:109
-#: Mailman/Cgi/edithtml.py:91 Mailman/Cgi/private.py:135
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:106 Mailman/Cgi/private.py:135
 msgid "Authorization failed."
 msgstr ""
 
 #: Mailman/Cgi/admin.py:196 Mailman/Cgi/admindb.py:200
-#: Mailman/Cgi/edithtml.py:147 Mailman/Cgi/options.py:288
+#: Mailman/Cgi/edithtml.py:148 Mailman/Cgi/options.py:288
 msgid "The form lifetime has expired. (request forgery check)"
 msgstr ""
 
@@ -540,18 +525,11 @@ msgstr ""
 msgid "Hold"
 msgstr ""
 
-<<<<<<< TREE
 #: Mailman/Cgi/admin.py:792 Mailman/Cgi/admindb.py:350
 #: Mailman/Cgi/admindb.py:411 Mailman/Cgi/admindb.py:453
-#: Mailman/Cgi/admindb.py:691 Mailman/Gui/ContentFilter.py:37
-#: Mailman/Gui/Privacy.py:216 Mailman/Gui/Privacy.py:297
-=======
-#: Mailman/Cgi/admin.py:773 Mailman/Cgi/admindb.py:330
-#: Mailman/Cgi/admindb.py:389 Mailman/Cgi/admindb.py:431
-#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:93
+#: Mailman/Cgi/admindb.py:691 Mailman/Commands/cmd_confirm.py:93
 #: Mailman/Gui/ContentFilter.py:37 Mailman/Gui/Privacy.py:216
 #: Mailman/Gui/Privacy.py:297
->>>>>>> MERGE-SOURCE
 msgid "Discard"
 msgstr ""
 
@@ -1088,13 +1066,8 @@ msgstr ""
 msgid "Reason for refusal"
 msgstr ""
 
-<<<<<<< TREE
 #: Mailman/Cgi/admindb.py:348 Mailman/Cgi/admindb.py:409
-#: Mailman/Cgi/admindb.py:691
-=======
-#: Mailman/Cgi/admindb.py:328 Mailman/Cgi/admindb.py:387
-#: Mailman/Cgi/admindb.py:669 Mailman/Commands/cmd_confirm.py:90
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/admindb.py:691 Mailman/Commands/cmd_confirm.py:90
 msgid "Approve"
 msgstr ""
 
@@ -1884,103 +1857,55 @@ msgstr ""
 msgid "Welcome email text file"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:63
-=======
-#: Mailman/Cgi/edithtml.py:49
+#: Mailman/Cgi/edithtml.py:52
 msgid "Digest masthead"
 msgstr ""
 
-#: Mailman/Cgi/edithtml.py:61
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:64
 msgid "List name is required."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:117
-=======
-#: Mailman/Cgi/edithtml.py:103
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:118
 msgid "%(realname)s -- Edit html for %(template_info)s"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:123
-=======
-#: Mailman/Cgi/edithtml.py:109
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:124
 msgid "Edit HTML : Error"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:124
-=======
-#: Mailman/Cgi/edithtml.py:110
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:125
 msgid "%(safetemplatename)s: Invalid template"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:129 Mailman/Cgi/edithtml.py:130
-=======
-#: Mailman/Cgi/edithtml.py:115 Mailman/Cgi/edithtml.py:116
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:130 Mailman/Cgi/edithtml.py:131
 msgid "%(realname)s -- HTML Page Editing"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:131
-=======
-#: Mailman/Cgi/edithtml.py:117
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:132
 msgid "Select page to edit:"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:161
-=======
-#: Mailman/Cgi/edithtml.py:143
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:162
 msgid "View or edit the list configuration information."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:171
-=======
-#: Mailman/Cgi/edithtml.py:152
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:172
 msgid "When you are done making changes..."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:172
-=======
-#: Mailman/Cgi/edithtml.py:153
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:173
 msgid "Submit Changes"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:179
-=======
-#: Mailman/Cgi/edithtml.py:160
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:180
 msgid "Can't have empty html page."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:180
-=======
-#: Mailman/Cgi/edithtml.py:161
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:181
 msgid "HTML Unchanged."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:186
-=======
-#: Mailman/Cgi/edithtml.py:167
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:187
 msgid ""
 "The page you saved contains suspicious HTML that could\n"
 "potentially expose your users to cross-site scripting attacks.  This change\n"
@@ -1989,35 +1914,19 @@ msgid ""
 "             "
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:191
-=======
-#: Mailman/Cgi/edithtml.py:172
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:192
 msgid "See "
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:194
-=======
-#: Mailman/Cgi/edithtml.py:175
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:195
 msgid "FAQ 4.48."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:195
-=======
-#: Mailman/Cgi/edithtml.py:176
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:196
 msgid "Page Unchanged."
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Cgi/edithtml.py:213
-=======
-#: Mailman/Cgi/edithtml.py:194
->>>>>>> MERGE-SOURCE
+#: Mailman/Cgi/edithtml.py:214
 msgid "HTML successfully updated."
 msgstr ""
 
@@ -5986,19 +5895,11 @@ msgstr ""
 msgid "digest footer"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Handlers/ToDigest.py:372
-=======
-#: Mailman/Handlers/ToDigest.py:361 Mailman/Handlers/ToDigest.py:369
->>>>>>> MERGE-SOURCE
+#: Mailman/Handlers/ToDigest.py:372 Mailman/Handlers/ToDigest.py:382
 msgid "Digest Footer"
 msgstr ""
 
-<<<<<<< TREE
-#: Mailman/Handlers/ToDigest.py:384
-=======
-#: Mailman/Handlers/ToDigest.py:376
->>>>>>> MERGE-SOURCE
+#: Mailman/Handlers/ToDigest.py:386
 msgid "End of "
 msgstr ""
 
