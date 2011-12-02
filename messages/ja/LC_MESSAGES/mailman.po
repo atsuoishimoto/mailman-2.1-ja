@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mailman 2.1.14+j6\n"
-"POT-Creation-Date: Thu Nov 10 17:46:18 2011\n"
+"POT-Creation-Date: Fri Dec  2 14:35:45 2011\n"
 "PO-Revision-Date: 2011-06-10 09:00+09:00\n"
 "Last-Translator: Tokio Kikuchi <tokio.kikuchi@gmail.com>\n"
 "Language-Team: Japanese <mailman-users-jp@python.jp>\n"
@@ -240,7 +240,7 @@ msgid "Administrator"
 msgstr "管理者"
 
 #: Mailman/Cgi/admin.py:78 Mailman/Cgi/admindb.py:97 Mailman/Cgi/confirm.py:62
-#: Mailman/Cgi/edithtml.py:73 Mailman/Cgi/listinfo.py:54
+#: Mailman/Cgi/edithtml.py:74 Mailman/Cgi/listinfo.py:54
 #: Mailman/Cgi/options.py:81 Mailman/Cgi/private.py:108
 #: Mailman/Cgi/rmlist.py:64 Mailman/Cgi/roster.py:59
 #: Mailman/Cgi/subscribe.py:62
@@ -248,12 +248,12 @@ msgid "No such list <em>%(safelistname)s</em>"
 msgstr "<em>%(safelistname)s</em>というリストはありません"
 
 #: Mailman/Cgi/admin.py:105 Mailman/Cgi/admindb.py:125
-#: Mailman/Cgi/edithtml.py:105 Mailman/Cgi/private.py:135
+#: Mailman/Cgi/edithtml.py:106 Mailman/Cgi/private.py:135
 msgid "Authorization failed."
 msgstr "認証失敗"
 
 #: Mailman/Cgi/admin.py:196 Mailman/Cgi/admindb.py:200
-#: Mailman/Cgi/edithtml.py:147 Mailman/Cgi/options.py:288
+#: Mailman/Cgi/edithtml.py:148 Mailman/Cgi/options.py:288
 msgid "The form lifetime has expired. (request forgery check)"
 msgstr ""
 
@@ -562,8 +562,9 @@ msgstr "保留"
 
 #: Mailman/Cgi/admin.py:792 Mailman/Cgi/admindb.py:350
 #: Mailman/Cgi/admindb.py:411 Mailman/Cgi/admindb.py:453
-#: Mailman/Cgi/admindb.py:691 Mailman/Gui/ContentFilter.py:37
-#: Mailman/Gui/Privacy.py:216 Mailman/Gui/Privacy.py:297
+#: Mailman/Cgi/admindb.py:691 Mailman/Commands/cmd_confirm.py:93
+#: Mailman/Gui/ContentFilter.py:37 Mailman/Gui/Privacy.py:216
+#: Mailman/Gui/Privacy.py:297
 msgid "Discard"
 msgstr "破棄"
 
@@ -1154,7 +1155,7 @@ msgid "Reason for refusal"
 msgstr "拒否の理由"
 
 #: Mailman/Cgi/admindb.py:348 Mailman/Cgi/admindb.py:409
-#: Mailman/Cgi/admindb.py:691
+#: Mailman/Cgi/admindb.py:691 Mailman/Commands/cmd_confirm.py:90
 msgid "Approve"
 msgstr "承認"
 
@@ -2115,51 +2116,55 @@ msgstr "各会員用のオプションページ"
 msgid "Welcome email text file"
 msgstr "歓迎メールのテキストファイル"
 
-#: Mailman/Cgi/edithtml.py:63
+#: Mailman/Cgi/edithtml.py:52
+msgid "Digest masthead"
+msgstr "まとめ読みヘッダ"
+
+#: Mailman/Cgi/edithtml.py:64
 msgid "List name is required."
 msgstr "リストの名前が必要です."
 
-#: Mailman/Cgi/edithtml.py:117
+#: Mailman/Cgi/edithtml.py:118
 msgid "%(realname)s -- Edit html for %(template_info)s"
 msgstr "%(realname)s -- %(template_info)s の HTML を編集"
 
-#: Mailman/Cgi/edithtml.py:123
+#: Mailman/Cgi/edithtml.py:124
 msgid "Edit HTML : Error"
 msgstr "HTMLの編集 : エラー"
 
-#: Mailman/Cgi/edithtml.py:124
+#: Mailman/Cgi/edithtml.py:125
 msgid "%(safetemplatename)s: Invalid template"
 msgstr "%(safetemplatename)s: 雛型(テンプレート)が無効です"
 
-#: Mailman/Cgi/edithtml.py:129 Mailman/Cgi/edithtml.py:130
+#: Mailman/Cgi/edithtml.py:130 Mailman/Cgi/edithtml.py:131
 msgid "%(realname)s -- HTML Page Editing"
 msgstr "%(realname)s -- HTML ページの編集"
 
-#: Mailman/Cgi/edithtml.py:131
+#: Mailman/Cgi/edithtml.py:132
 msgid "Select page to edit:"
 msgstr "編集するページを選んでください:"
 
-#: Mailman/Cgi/edithtml.py:161
+#: Mailman/Cgi/edithtml.py:162
 msgid "View or edit the list configuration information."
 msgstr "リスト設定情報の閲覧・編集"
 
-#: Mailman/Cgi/edithtml.py:171
+#: Mailman/Cgi/edithtml.py:172
 msgid "When you are done making changes..."
 msgstr "変更ができたら ..."
 
-#: Mailman/Cgi/edithtml.py:172
+#: Mailman/Cgi/edithtml.py:173
 msgid "Submit Changes"
 msgstr "変更を送信"
 
-#: Mailman/Cgi/edithtml.py:179
+#: Mailman/Cgi/edithtml.py:180
 msgid "Can't have empty html page."
 msgstr "HTML ページを空白にすることはできません."
 
-#: Mailman/Cgi/edithtml.py:180
+#: Mailman/Cgi/edithtml.py:181
 msgid "HTML Unchanged."
 msgstr "HTML は変更されませんでした."
 
-#: Mailman/Cgi/edithtml.py:186
+#: Mailman/Cgi/edithtml.py:187
 msgid ""
 "The page you saved contains suspicious HTML that could\n"
 "potentially expose your users to cross-site scripting attacks.  This change\n"
@@ -2172,19 +2177,19 @@ msgstr ""
 "た. もし, どうしても変更が必要であれば, \n"
 "Mailman サーバにシェルアクセスしなければなりません.\n"
 
-#: Mailman/Cgi/edithtml.py:191
+#: Mailman/Cgi/edithtml.py:192
 msgid "See "
 msgstr "参照:"
 
-#: Mailman/Cgi/edithtml.py:194
+#: Mailman/Cgi/edithtml.py:195
 msgid "FAQ 4.48."
 msgstr "FAQ 4.48."
 
-#: Mailman/Cgi/edithtml.py:195
+#: Mailman/Cgi/edithtml.py:196
 msgid "Page Unchanged."
 msgstr "ページは変更されませんでした."
 
-#: Mailman/Cgi/edithtml.py:213
+#: Mailman/Cgi/edithtml.py:214
 msgid "HTML successfully updated."
 msgstr "HTML の変更が完了しました."
 
@@ -2962,7 +2967,8 @@ msgstr ""
 msgid "Bad approval password given.  Held message is still being held."
 msgstr "承認パスワードが間違っています. 保留メールは保留を続けます."
 
-#: Mailman/Commands/cmd_confirm.py:87
+#: Mailman/Commands/cmd_confirm.py:89 Mailman/Commands/cmd_confirm.py:92
+#: Mailman/Commands/cmd_confirm.py:95
 msgid "Confirmation succeeded"
 msgstr "確認しました"
 
@@ -7543,11 +7549,11 @@ msgstr "[添付ファイル除去によりメールが破棄されました]"
 msgid "digest footer"
 msgstr "まとめ読みフッタ"
 
-#: Mailman/Handlers/ToDigest.py:372
+#: Mailman/Handlers/ToDigest.py:372 Mailman/Handlers/ToDigest.py:382
 msgid "Digest Footer"
 msgstr "まとめ読みフッタ"
 
-#: Mailman/Handlers/ToDigest.py:384
+#: Mailman/Handlers/ToDigest.py:386
 msgid "End of "
 msgstr "以上: "
 
