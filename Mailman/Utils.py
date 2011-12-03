@@ -898,8 +898,6 @@ def uquote(s):
 #             specified charset
 # check spaces between encoded_words (and strip them)
 sre = re.compile(r'\?=[ \t]+=\?')
-# merging befor MIME decode
-bre = re.compile(r'(?:(=\?.+?\?[bq]\?)(.+?)(?<!=)\?=)\1(.+?)\?=', re.I)
 # re pat for MIME encoded_word (without trailing spaces)
 mre = re.compile(r'=\?[^?]*?\?[bq]\?[^? \t]*?\?=', re.I)
 
@@ -915,7 +913,6 @@ def u2u_decode(s):
     # note2: spaces between enc_words are stripped (see RFC2047)
     s = ''.join(s.splitlines())
     s = sre.sub('?==?', s)
-    s = bre.sub('\g<1>\g<2>\g<3>?=', s)
     u = mre.sub(decode_mime, s)
     return u
 
