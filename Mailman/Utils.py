@@ -918,8 +918,16 @@ def u2u_decode(s):
 
 def oneline(s, cset):
     try:
+        # First try is to convert mime to unicode before concatnation
         line = u2u_decode(s)
         return line.encode(cset)
+    except (LookupError, UnicodeError, ValueError, HeaderParseError):
+        pass
+    try:
+        # Second try is to use python email package.  Concatnation is
+        # done before unicode conversion.  This is more robus than the
+        # first try but have some debate on adding 'space'.
+        return unicode(make_header(decode_header(s))).encode(cset)
     except (LookupError, UnicodeError, ValueError, HeaderParseError):
         # possibly charset problem. optimize with the cset.
         s = EMPTYSTRING.join(s.splitlines())
