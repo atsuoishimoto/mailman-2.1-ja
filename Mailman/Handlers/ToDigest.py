@@ -348,7 +348,8 @@ def send_i18n_digests(mlist, mboxfp):
         for h in mm_cfg.PLAIN_DIGEST_KEEP_HEADERS:
             if msg[h]:
                 try:
-                    uh = Utils.wrap('%s: %s' % (h, Utils.u2u_decode(msg[h])))
+                    uh = Utils.wrap('%s: %s' % (h, 
+                        Utils.oneline(msg[h], lcset).decode(lcset)))
                 except UnicodeError:
                     uh = Utils.wrap('%s: %s' % (h, msg[h]))
                 uh = '\n\t'.join(uh.split('\n'))
